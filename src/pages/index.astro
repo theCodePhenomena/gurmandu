@@ -8,8 +8,10 @@ import DeliverySection from '@/components/blocks/delivery-section/delivery-secti
 import NewItems from '@/components/blocks/new-items-section/new-items'
 import ContactUs from '@/components/blocks/contact-us-section/contact-us-page'
 import Offers from '@/components/blocks/offers-section/offers-section'
+import MenuSection from '@/components/blocks/menu-section/menu-section'
 
 import { menudata } from '@/assets/data/hero'
+import { plateCategories } from '@/assets/data/menu'
 import { popularDishes } from '@/assets/data/popular-dishes'
 import { stats } from '@/assets/data/about-us'
 import { testimonials } from '@/assets/data/testimonials'
@@ -47,6 +49,7 @@ const schema = {
 <Layout title={pageTitle} description={pageDescription} keywords={pageKeywords} schema={schema}>
   <HeroSectionPage menudata={menudata} client:load />
   <PopularDishes popularDishes={popularDishes} client:load />
+  <MenuSection plateCategories={plateCategories} client:load />
   <AboutUs stats={stats} />
   <Testimonials testimonials={testimonials} client:load />
   <DeliverySection deliveryOptions={deliveryOptions} client:load />
