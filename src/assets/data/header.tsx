@@ -10,6 +10,10 @@ export const navigationData: NavigationSection[] = [
     href: '#testimonials'
   },
   {
+    title: 'Delivery',
+    href: '#delivery'
+  },
+  {
     title: 'Contact Us',
     href: '#contact-us'
   },
