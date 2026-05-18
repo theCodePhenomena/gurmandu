@@ -3,19 +3,79 @@ import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
 import type { PlateCategory } from '@/assets/data/menu'
 import { siteLang, siteCurrency } from '@/assets/data/menu'
+import type { Locale } from '@/i18n/ui'
+import { ui } from '@/i18n/ui'
 
 type MenuSectionProps = {
   plateCategories: PlateCategory[]
+  lang?: Locale
 }
 
-const MenuSection = ({ plateCategories }: MenuSectionProps) => {
-  const [activeSlug, setActiveSlug] = useState<string>(plateCategories[0]?.slug ?? '')
+const ALLERGEN_NAMES: Record<Locale, Record<string, string>> = {
+  ro: {
+    '1': 'gluten',
+    '2': 'crustacee',
+    '3': 'ouă',
+    '4': 'pește',
+    '5': 'arahide',
+    '6': 'soia',
+    '7': 'lapte',
+    '8': 'fructe cu coajă',
+    '9': 'țelină',
+    '10': 'muștar',
+    '11': 'susan',
+    '12': 'sulfiți',
+    '13': 'lupin',
+    '14': 'moluște'
+  },
+  en: {
+    '1': 'gluten',
+    '2': 'crustaceans',
+    '3': 'eggs',
+    '4': 'fish',
+    '5': 'peanuts',
+    '6': 'soy',
+    '7': 'milk',
+    '8': 'tree nuts',
+    '9': 'celery',
+    '10': 'mustard',
+    '11': 'sesame',
+    '12': 'sulfites',
+    '13': 'lupin',
+    '14': 'molluscs'
+  }
+}
+
+const allergenLabel = (codes: string | undefined, lang: Locale) => {
+  if (!codes) return ''
+
+  const map = ALLERGEN_NAMES[lang]
+  const names = codes
+    .split(',')
+    .map(c => map[c.trim()])
+    .filter(Boolean)
+
+  return names.length ? ` ${ui[lang]['menu.allergens']}: ${names.join(', ')}` : ''
+}
+
+const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
+  const [activeSlug, setActiveSlug] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1)
+
+      if (hash && plateCategories.some(c => c.slug === hash)) return hash
+    }
+
+    return plateCategories[0]?.slug ?? ''
+  })
+
   const navRef = useRef<HTMLUListElement>(null)
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
   const isNavigatingByClick = useRef(false)
   const clickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const formatter = new Intl.NumberFormat(siteLang.replace('_', '-'), {
+  const formatter = new Intl.NumberFormat(siteLang[lang], {
     style: 'currency',
     currency: siteCurrency
   })
@@ -38,12 +98,6 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
     )
 
     sections.forEach(s => observer.observe(s))
-
-    const hash = window.location.hash.substring(1)
-
-    if (hash && plateCategories.some(c => c.slug === hash)) {
-      setActiveSlug(hash)
-    }
 
     return () => observer.disconnect()
   }, [plateCategories])
@@ -75,12 +129,10 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <Badge variant='outline' className='text-sm font-normal'>
-            Menu
+            {t('menu.badge')}
           </Badge>
-          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Our menu</h2>
-          <p className='text-muted-foreground text-xl'>
-            We offer a variety of dishes, from traditional to modern, that are sure to satisfy your cravings.
-          </p>
+          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('menu.title')}</h2>
+          <p className='text-muted-foreground text-xl'>{t('menu.subtitle')}</p>
         </div>
 
         {/* Sticky category nav */}
@@ -108,7 +160,7 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
                         isActive ? 'bg-background text-primary' : 'hover:bg-background/10'
                       )}
                     >
-                      {cat.prettyName}
+                      {cat.prettyName[lang]}
                     </a>
                   </li>
                 )
@@ -122,28 +174,36 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
           {plateCategories.map(cat => (
             <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-16'>
               <div className='mx-auto flex max-w-lg flex-col items-center gap-2 text-center text-balance'>
-                <h3 className='text-primary/80 text-2xl font-semibold md:text-3xl'>{cat.prettyName}</h3>
-                <p className='text-muted-foreground'>{cat.description}</p>
+                <h3 className='text-primary/80 text-2xl font-semibold md:text-3xl'>{cat.prettyName[lang]}</h3>
+                <p className='text-muted-foreground'>{cat.description[lang]}</p>
               </div>
 
-              <dl className='mx-auto max-w-5xl'>
-                <div className='grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-x-16 xl:gap-x-32'>
-                  {cat.plates.map(item => (
-                    <div key={item.name}>
-                      <dt>
-                        <div className='flex items-center justify-between'>
-                          <span className='text-2xl font-bold tracking-wide'>{item.name}</span>
-                          <span className='text-lg font-medium'>{formatter.format(item.price)}</span>
-                        </div>
+              <dl className='mx-auto flex max-w-2xl flex-col divide-y'>
+                {cat.plates.map(item => (
+                  <div key={item.name.ro} className='flex items-stretch justify-between gap-4 py-6'>
+                    <div className='flex min-w-0 flex-1 flex-col'>
+                      <dt className='truncate text-xl font-bold sm:text-2xl'>
+                        {item.name[lang]}
+                        {item.weight && (
+                          <span className='text-muted-foreground ml-2 text-base font-normal'>{item.weight}</span>
+                        )}
                       </dt>
-                      <dd>
-                        <p className='text-muted-foreground mt-2 leading-normal tracking-wide text-balance'>
-                          {item.description}
+                      <dd className='mt-1 flex flex-1 flex-col'>
+                        <p className='text-muted-foreground line-clamp-2 text-base'>
+                          {item.description[lang]}
+                          {allergenLabel(item.allergens, lang)}
                         </p>
+                        <p className='text-primary mt-auto pt-2 text-lg font-bold'>{formatter.format(item.price)}</p>
                       </dd>
                     </div>
-                  ))}
-                </div>
+                    <img
+                      src={item.image}
+                      alt={item.name[lang]}
+                      loading='lazy'
+                      className='bg-muted aspect-[4/3] h-28 shrink-0 rounded-xl object-cover sm:h-32'
+                    />
+                  </div>
+                ))}
               </dl>
             </div>
           ))}

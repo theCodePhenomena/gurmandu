@@ -61,6 +61,14 @@ export default defineConfig({
     })
   ],
   output: 'static',
+  i18n: {
+    defaultLocale: 'ro',
+    locales: ['ro', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false
+    }
+  },
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto'

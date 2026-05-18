@@ -1,0 +1,27 @@
+---
+import { getLangFromUrl, alternateLangPath } from '@/i18n/utils'
+import { locales } from '@/i18n/ui'
+
+const current = getLangFromUrl(Astro.url)
+---
+
+<div class='flex items-center gap-1 text-sm'>
+  {
+    locales.map(loc => {
+      const href = alternateLangPath(Astro.url, loc)
+      const isActive = loc === current
+      return (
+        <a
+          href={href}
+          aria-current={isActive ? 'page' : undefined}
+          class:list={[
+            'rounded px-2 py-1 font-medium uppercase transition',
+            isActive ? 'bg-primary text-primary-foreground' : 'hover:bg-muted'
+          ]}
+        >
+          {loc}
+        </a>
+      )
+    })
+  }
+</div>
