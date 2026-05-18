@@ -9,7 +9,16 @@ type MenuSectionProps = {
 }
 
 const MenuSection = ({ plateCategories }: MenuSectionProps) => {
-  const [activeSlug, setActiveSlug] = useState<string>(plateCategories[0]?.slug ?? '')
+  const [activeSlug, setActiveSlug] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1)
+
+      if (hash && plateCategories.some(c => c.slug === hash)) return hash
+    }
+
+    return plateCategories[0]?.slug ?? ''
+  })
+
   const navRef = useRef<HTMLUListElement>(null)
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
   const isNavigatingByClick = useRef(false)
@@ -38,12 +47,6 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
     )
 
     sections.forEach(s => observer.observe(s))
-
-    const hash = window.location.hash.substring(1)
-
-    if (hash && plateCategories.some(c => c.slug === hash)) {
-      setActiveSlug(hash)
-    }
 
     return () => observer.disconnect()
   }, [plateCategories])
