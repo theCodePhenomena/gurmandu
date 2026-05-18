@@ -8,8 +8,8 @@ export const GalleryImage = [
       className: 'xl:top-6 xl:right-6 top-3 right-3'
     },
     offerButton: {
-      text: 'Book your table',
-      link: '#',
+      text: 'Contact us',
+      link: '#contact-us',
       className: 'xl:top-19.5 xl:right-6 top-12 right-3'
     }
   },
@@ -36,8 +36,8 @@ export const GalleryImage = [
       className: 'xl:top-5 xl:right-12 top-3 right-3'
     },
     offerButton: {
-      text: 'Book your table',
-      link: '#',
+      text: 'Contact us',
+      link: '#contact-us',
       className: 'xl:top-19 xl:right-12 top-11 right-3'
     }
   }

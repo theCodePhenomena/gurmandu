@@ -23,8 +23,7 @@ const NewItems = ({ newItems }: { newItems: NewItem }) => {
           </Badge>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Fresh menu items</h2>
           <p className='text-muted-foreground text-xl'>
-            Explore our most recent additions to the menu. Each dish is designed to delight your taste buds and provide
-            a memorable dining experience.
+            Newest fusion plates on the menu — Romanian, Mediterranean and Italian flavors with a modern twist.
           </p>
         </div>
 

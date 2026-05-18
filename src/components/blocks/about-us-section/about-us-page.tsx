@@ -23,10 +23,10 @@ const AboutUs = ({ stats }: { stats: Stat[] }) => {
           <Badge variant='outline' className='text-sm font-normal'>
             About Us
           </Badge>
-          <h2 className='text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl'>Our story & achievements</h2>
+          <h2 className='text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl'>Fusion done right</h2>
           <p className='text-muted-foreground text-xl'>
-            At Restaurant, every dish tells a story. With years of dedication and a passion for fine dining, we&apos;ve
-            transformed the art of cooking into an unforgettable experience.
+            Romanian roots, Mediterranean warmth, Italian craft — served in a modern setting. Every plate brings the
+            three cuisines together with fresh ingredients and a contemporary touch.
           </p>
           <Button
             size='lg'

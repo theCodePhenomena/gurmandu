@@ -3,7 +3,6 @@ import Layout from '@/layouts/Layout.astro'
 import HeroSectionPage from '@/components/blocks/hero-section/hero-section'
 import PopularDishes from '@/components/blocks/popular-dishes/popular-dishes'
 import AboutUs from '@/components/blocks/about-us-section/about-us-page'
-import Testimonials from '@/components/blocks/testimonials-section/testimonials-section'
 import DeliverySection from '@/components/blocks/delivery-section/delivery-section'
 import NewItems from '@/components/blocks/new-items-section/new-items'
 import ContactUs from '@/components/blocks/contact-us-section/contact-us-page'
@@ -17,7 +16,6 @@ import { getLangFromUrl } from '@/i18n/utils'
 const lang = getLangFromUrl(Astro.url)
 import { popularDishes } from '@/assets/data/popular-dishes'
 import { stats } from '@/assets/data/about-us'
-import { testimonials } from '@/assets/data/testimonials'
 import { deliveryOptions } from '@/assets/data/delivery'
 import { newItems } from '@/assets/data/new-items'
 import { contactInfo } from '@/assets/data/contact-us'
@@ -26,14 +24,14 @@ import { GalleryImage } from '@/assets/data/offers'
 // Page-specific SEO configuration
 const pageTitle = ''
 const pageDescription =
-  'Enjoy fresh ingredients, thoughtfully prepared meals, and a welcoming space designed for memorable moments. Experience bistro dining made simple and delicious.'
-const pageKeywords = 'astro template, shadcn ui, tailwind css, react components, restaurant'
+  'Fusion cuisine: Romanian, Mediterranean and Italian recipes reimagined in a modern setting. Fresh ingredients, prepared with passion.'
+const pageKeywords = 'restaurant, fusion, Romanian cuisine, Mediterranean, Italian, modern, GurMANDU'
 
 // Structured data for better SEO
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'WebApplication',
-  name: 'Bistro - Restaurant Landing Page',
+  name: 'GurMANDU - Fusion Restaurant',
   description: pageDescription,
   applicationCategory: 'DeveloperApplication',
   operatingSystem: 'Any',
@@ -54,7 +52,6 @@ const schema = {
   <PopularDishes popularDishes={popularDishes} client:load />
   <MenuSection plateCategories={plateCategories} lang={lang} client:load />
   <AboutUs stats={stats} />
-  <Testimonials testimonials={testimonials} client:load />
   <DeliverySection deliveryOptions={deliveryOptions} client:load />
   <NewItems newItems={newItems} />
   <ContactUs contactInfo={contactInfo} />

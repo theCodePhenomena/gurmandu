@@ -7,14 +7,14 @@ export const ui = {
     'menu.badge': 'Meniu',
     'menu.title': 'Meniul nostru',
     'menu.subtitle':
-      'Oferim o varietate de preparate, de la tradiționale la moderne, care îți vor satisface cele mai exigente pofte.',
+      'Bucătărie fusion: rețete românești, mediteraneene și italiene, reinventate într-un stil modern.',
     'menu.allergens': 'Alergeni'
   },
   en: {
     'menu.badge': 'Menu',
     'menu.title': 'Our menu',
     'menu.subtitle':
-      'We offer a variety of dishes, from traditional to modern, that are sure to satisfy your cravings.',
+      'Fusion cuisine: Romanian, Mediterranean and Italian recipes, reimagined with a modern twist.',
     'menu.allergens': 'Allergens'
   }
 } as const satisfies Record<Locale, Record<string, string>>

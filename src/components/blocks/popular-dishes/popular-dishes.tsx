@@ -20,8 +20,8 @@ const PopularDishes = ({ popularDishes }: { popularDishes: PopularDish }) => {
           </Badge>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Favorite meals</h2>
           <p className='text-muted-foreground text-xl'>
-            Discover our most loved creations crafted with passion, fresh ingredients, and bold flavours that keep
-            guests coming back for more.
+            Signature fusion plates pulled from Romanian, Mediterranean and Italian cooking — reimagined for the modern
+            table.
           </p>
         </div>
 

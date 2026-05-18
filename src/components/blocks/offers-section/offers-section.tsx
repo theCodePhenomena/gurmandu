@@ -31,7 +31,7 @@ const Gallery = ({ galleryImage }: { galleryImage: GalleryImage }) => {
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Explore our Offerings</h2>
 
           <p className='text-muted-foreground text-xl'>
-            Don&apos;t miss out on the dining experience. Reserve your table and indulge in a culinary journey today.
+            Book your table and step into a modern fusion of Romanian, Mediterranean and Italian flavors.
           </p>
         </div>
 
