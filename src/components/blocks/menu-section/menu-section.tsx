@@ -50,6 +50,7 @@ const allergenLabel = (codes: string | undefined, lang: Locale) => {
   if (!codes) return ''
 
   const map = ALLERGEN_NAMES[lang]
+
   const names = codes
     .split(',')
     .map(c => map[c.trim()])
@@ -60,7 +61,7 @@ const allergenLabel = (codes: string | undefined, lang: Locale) => {
 
 const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
   const t = (key: keyof typeof ui.ro) => ui[lang][key]
-  const [imageSizes, setImageSizes] = useState<Record<string, { width: number; height: number }>>({})
+
   const [activeSlug, setActiveSlug] = useState<string>(() => {
     if (typeof window !== 'undefined') {
       const hash = window.location.hash.substring(1)
@@ -80,43 +81,6 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
     style: 'currency',
     currency: siteCurrency
   })
-
-  const MAX_IMAGE_WIDTH = 192
-  const MAX_IMAGE_HEIGHT = 168
-  const DEFAULT_IMAGE_WIDTH = 120
-  const DEFAULT_IMAGE_HEIGHT = 152
-
-  const getImageKey = (category: PlateCategory, itemName: string) => `${category.slug}-${itemName}`
-
-  const clampImageSize = (naturalWidth: number, naturalHeight: number) => {
-    if (!naturalWidth || !naturalHeight) return undefined
-
-    const ratio = naturalWidth / naturalHeight
-
-    let width = Math.min(naturalWidth, MAX_IMAGE_WIDTH)
-    let height = width / ratio
-
-    if (height > MAX_IMAGE_HEIGHT) {
-      height = MAX_IMAGE_HEIGHT
-      width = height * ratio
-    }
-
-    return { width, height }
-  }
-
-  const handleImageLoad = (key: string) => (event: React.SyntheticEvent<HTMLImageElement>) => {
-    const { naturalWidth, naturalHeight } = event.currentTarget
-    const size = clampImageSize(naturalWidth, naturalHeight)
-
-    if (!size) return
-
-    setImageSizes(prev => {
-      const current = prev[key]
-      if (current && current.width === size.width && current.height === size.height) return prev
-
-      return { ...prev, [key]: size }
-    })
-  }
 
   useEffect(() => {
     const sections = plateCategories.map(c => document.getElementById(c.slug)).filter((el): el is HTMLElement => !!el)
@@ -208,42 +172,36 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
         </div>
 
         {/* Category sections */}
-        <div className='grid grid-cols-1 gap-y-32'>
+        <div className='grid grid-cols-1 gap-y-16'>
           {plateCategories.map(cat => (
-            <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-16'>
-              <div className='mx-auto flex max-w-lg flex-col items-center gap-2 text-center text-balance'>
-                <h3 className='text-primary/80 text-2xl font-semibold md:text-3xl'>{cat.prettyName[lang]}</h3>
-                <p className='text-muted-foreground'>{cat.description[lang]}</p>
+            <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-8 divide-y'>
+              <div className='mx-auto flex max-w-4xl flex-col items-start gap-2 py-6 text-center text-balance'>
+                <h3 className='text-primary/80 text-2xl font-semibold md:text-4xl'>{cat.prettyName[lang]}</h3>
               </div>
 
-              <dl className='mx-auto flex max-w-2xl flex-col divide-y'>
+              <dl className='mx-auto flex max-w-4xl flex-col divide-y'>
                 {cat.plates.map(item => {
                   const hasImage = Boolean(item.image)
                   const priceLabel = formatter.format(item.price)
-                  const imageKey = item.image ? item.image : getImageKey(cat, item.name.ro)
-                  const size = imageKey ? imageSizes[imageKey] : undefined
-                  const displayWidth = size?.width ?? DEFAULT_IMAGE_WIDTH
-                  const displayHeight = size?.height ?? DEFAULT_IMAGE_HEIGHT
 
                   return (
                     <div
                       key={item.name.ro}
-                      className={cn(
-                        'flex items-stretch justify-between gap-4 py-6',
-                        !hasImage && 'items-center'
-                      )}
+                      className={cn('flex items-stretch justify-between gap-4 py-6', !hasImage && 'items-center')}
                     >
                       <div className='flex min-w-0 flex-1 flex-col'>
                         <dt className='text-xl font-bold sm:text-2xl'>
                           <span className='flex items-baseline justify-between gap-4'>
-                            <span className='flex items-baseline gap-2 min-w-0'>
+                            <span className='flex min-w-0 items-baseline gap-2'>
                               <span className='truncate'>{item.name[lang]}</span>
                               {item.weight && (
                                 <span className='text-muted-foreground text-base font-normal'>{item.weight}</span>
                               )}
                             </span>
                             {!hasImage && (
-                              <span className='text-primary text-lg font-semibold sm:text-xl whitespace-nowrap'>{priceLabel}</span>
+                              <span className='text-primary text-lg font-semibold whitespace-nowrap sm:text-xl'>
+                                {priceLabel}
+                              </span>
                             )}
                           </span>
                         </dt>
@@ -255,18 +213,9 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                           {hasImage && <p className='text-primary mt-auto pt-2 text-lg font-bold'>{priceLabel}</p>}
                         </dd>
                       </div>
-                      {hasImage && imageKey && (
-                        <div
-                          className='bg-muted shrink-0 overflow-hidden rounded-xl'
-                          style={{ width: `${displayWidth}px`, height: `${displayHeight}px` }}
-                        >
-                          <img
-                            src={item.image}
-                            alt={item.name[lang]}
-                            loading='lazy'
-                            className='h-full w-full object-cover'
-                            onLoad={handleImageLoad(imageKey)}
-                          />
+                      {hasImage && (
+                        <div className='bg-muted shrink-0 overflow-hidden rounded-xl'>
+                          <img src={item.image} alt={item.name[lang]} loading='lazy' className='max-h-40' />
                         </div>
                       )}
                     </div>

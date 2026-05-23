@@ -112,8 +112,8 @@ export const plateCategories: PlateCategory[] = [
   },
   {
     id: 2,
-    slug: 'gustare-rece',
-    prettyName: p('Gustare Rece', 'Cold Appetizers'),
+    slug: 'gustari-reci',
+    prettyName: p('Gustări Reci', 'Cold Appetizers'),
     description: p(
       'Aperitive reci, perfecte pentru început de masă.',
       'Cold appetizers, the perfect way to start your meal.'
@@ -128,7 +128,7 @@ export const plateCategories: PlateCategory[] = [
         price: 29,
         weight: '250g',
         allergens: '3,10',
-        image: m('gustare-rece/salata-boeuf')
+        image: m('gustari-reci/salata-boeuf')
       },
       {
         name: p('Salată de icre de crap', 'Carp roe salad'),
@@ -136,7 +136,7 @@ export const plateCategories: PlateCategory[] = [
         price: 29,
         weight: '150g',
         allergens: '1,4',
-        image: m('gustare-rece/icre-crap')
+        image: m('gustari-reci/icre-crap')
       },
       {
         name: p('Fasole bătută', 'Beaten beans'),
@@ -147,14 +147,15 @@ export const plateCategories: PlateCategory[] = [
         price: 19,
         weight: '150g',
         allergens: '1',
-        image: m('gustare-rece/fasole-batuta')
+        image: m('gustari-reci/fasole-batuta')
       },
       {
         name: p('Salată de vinete', 'Eggplant salad'),
         description: p('Vinete, ceapă, usturoi, pâine prăjită.', 'Eggplant, onion, garlic, toast.'),
         price: 23,
         weight: '170g',
-        allergens: '1'
+        allergens: '1',
+        image: m('gustari-reci/salata-vinete')
       },
       {
         name: p('Zacuscă de legume', 'Roasted vegetable spread'),
@@ -165,7 +166,7 @@ export const plateCategories: PlateCategory[] = [
         price: 26,
         weight: '170g',
         allergens: '1',
-        image: m('gustare-rece/zacusca')
+        image: m('gustari-reci/zacusca')
       },
       {
         name: p('Platou mix salate', 'Mixed salad platter'),
@@ -176,7 +177,7 @@ export const plateCategories: PlateCategory[] = [
         price: 98,
         weight: '750g',
         allergens: '1,3,10',
-        image: m('gustare-rece/mix-salate')
+        image: m('gustari-reci/mix-salate')
       },
       {
         name: p('Platou mix brânzeturi', 'Mixed cheese platter'),
@@ -187,14 +188,14 @@ export const plateCategories: PlateCategory[] = [
         price: 65,
         weight: '550g',
         allergens: '1,7,8',
-        image: m('gustare-rece/mix-branzeturi')
+        image: m('gustari-reci/mix-branzeturi')
       }
     ]
   },
   {
     id: 3,
-    slug: 'gustare-calda',
-    prettyName: p('Gustare Caldă', 'Hot Appetizers'),
+    slug: 'gustari-calde',
+    prettyName: p('Gustări Calde', 'Hot Appetizers'),
     description: p('Aperitive calde proaspăt preparate.', 'Freshly made hot appetizers.'),
     plates: [
       {
@@ -203,7 +204,7 @@ export const plateCategories: PlateCategory[] = [
         price: 32,
         weight: '250g',
         allergens: '1,3,7',
-        image: m('gustare-calda/cascaval-pane')
+        image: m('gustari-calde/cascaval-pane')
       },
       {
         name: p('Clătite cu pui și ciuperci', 'Chicken and mushrooms crepes'),
@@ -214,7 +215,7 @@ export const plateCategories: PlateCategory[] = [
         price: 29,
         weight: '250g',
         allergens: '1,3,7',
-        image: m('gustare-calda/clatite-pui')
+        image: m('gustari-calde/clatite-pui')
       },
       {
         name: p('Creveți în panko', 'Panko shrimps'),
@@ -225,7 +226,7 @@ export const plateCategories: PlateCategory[] = [
         price: 49,
         weight: '300g',
         allergens: '1,2,3',
-        image: m('gustare-calda/creveti-panko')
+        image: m('gustari-calde/creveti-panko')
       },
       {
         name: p('Inele de calamar pane', 'Fried squid rings'),
@@ -236,7 +237,7 @@ export const plateCategories: PlateCategory[] = [
         price: 49,
         weight: '280g',
         allergens: '1,3,14',
-        image: m('gustare-calda/calamar-pane')
+        image: m('gustari-calde/calamar-pane')
       }
     ]
   },

@@ -8,11 +8,11 @@ export type FeaturedDish = {
   description: Record<Locale, string>
 }
 
-const img = (slug: string) => `https://picsum.photos/seed/featured-${slug}/800/600`
+const img = (path: string) => `/images/menu/${path}.webp`
 
 export const popularDishes: FeaturedDish[] = [
   {
-    image: img('seafood-giant'),
+    image: img('platouri-fm/gigant'),
     alt: 'Platou Fructe de Mare GIGANT',
     weight: '2.500 g',
     name: {
@@ -25,7 +25,7 @@ export const popularDishes: FeaturedDish[] = [
     }
   },
   {
-    image: img('fritto-misto-giant'),
+    image: img('fritto/gigant'),
     alt: 'Fritto Misto GIGANT',
     weight: '3.200 g',
     name: {
@@ -38,7 +38,7 @@ export const popularDishes: FeaturedDish[] = [
     }
   },
   {
-    image: img('gurmandu-giant'),
+    image: img('platouri/gigant'),
     alt: 'Platou GurMANDU GIGANT',
     weight: '4.000 g',
     name: {
@@ -51,7 +51,7 @@ export const popularDishes: FeaturedDish[] = [
     }
   },
   {
-    image: img('mix-cheese'),
+    image: img('gustari-reci/mix-branzeturi'),
     alt: 'Platou Mix Brânzeturi',
     weight: '550 g',
     name: {
@@ -64,7 +64,7 @@ export const popularDishes: FeaturedDish[] = [
     }
   },
   {
-    image: img('snitzel-gurmandu'),
+    image: img('snitzels-gurmandu/pui'),
     alt: 'Snitzel GurMANDU',
     weight: '750 g',
     name: {
@@ -77,7 +77,7 @@ export const popularDishes: FeaturedDish[] = [
     }
   },
   {
-    image: img('tagliatelle-seafood'),
+    image: img('paste/tagliatelle-fm'),
     alt: 'Tagliatelle cu Fructe de Mare',
     weight: '400 g',
     name: {
