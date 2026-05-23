@@ -4,56 +4,42 @@ import HeroSectionPage from '@/components/blocks/hero-section/hero-section'
 import PopularDishes from '@/components/blocks/popular-dishes/popular-dishes'
 import AboutUs from '@/components/blocks/about-us-section/about-us-page'
 import DeliverySection from '@/components/blocks/delivery-section/delivery-section'
-import NewItems from '@/components/blocks/new-items-section/new-items'
 import ContactUs from '@/components/blocks/contact-us-section/contact-us-page'
-import Offers from '@/components/blocks/offers-section/offers-section'
 import MenuSection from '@/components/blocks/menu-section/menu-section'
+import SocialSection from '@/components/blocks/social-section/social-section'
 
 import { menudata } from '@/assets/data/hero'
 import { plateCategories } from '@/assets/data/menu'
-import { getLangFromUrl } from '@/i18n/utils'
-
-const lang = getLangFromUrl(Astro.url)
+import { drinkCategories } from '@/assets/data/drinks'
 import { popularDishes } from '@/assets/data/popular-dishes'
 import { stats } from '@/assets/data/about-us'
 import { deliveryOptions } from '@/assets/data/delivery'
-import { newItems } from '@/assets/data/new-items'
 import { contactInfo } from '@/assets/data/contact-us'
-import { GalleryImage } from '@/assets/data/offers'
+import { getLangFromUrl } from '@/i18n/utils'
 
-// Page-specific SEO configuration
+const lang = getLangFromUrl(Astro.url)
+
 const pageTitle = ''
 const pageDescription =
-  'Bucătărie fusion: rețete românești, mediteraneene și italiene reinventate într-un cadru modern. Ingrediente proaspete, preparate cu pasiune.'
+  'Bucătărie fusion: rețete românești, mediteraneene și italiene, reinventate într-un cadru modern. Ingrediente proaspete, preparate cu pasiune.'
 const pageKeywords = 'restaurant, fusion, bucătărie românească, mediteraneană, italiană, modern, GurMANDU'
 
-// Structured data for better SEO
 const schema = {
   '@context': 'https://schema.org',
-  '@type': 'WebApplication',
-  name: 'GurMANDU - Fusion Restaurant',
+  '@type': 'Restaurant',
+  name: 'GurMANDU',
   description: pageDescription,
-  applicationCategory: 'DeveloperApplication',
-  operatingSystem: 'Any',
-  offers: {
-    '@type': 'Offer',
-    price: '0',
-    priceCurrency: 'USD'
-  },
-  author: {
-    '@type': 'Organization',
-    name: 'Your Company Name'
-  }
+  servesCuisine: ['Romanian', 'Mediterranean', 'Italian', 'Fusion'],
+  priceRange: '$$'
 }
 ---
 
 <Layout title={pageTitle} description={pageDescription} keywords={pageKeywords} schema={schema}>
-  <HeroSectionPage menudata={menudata} client:load />
-  <PopularDishes popularDishes={popularDishes} client:load />
-  <MenuSection plateCategories={plateCategories} lang={lang} client:load />
-  <AboutUs stats={stats} />
-  <DeliverySection deliveryOptions={deliveryOptions} client:load />
-  <NewItems newItems={newItems} />
-  <ContactUs contactInfo={contactInfo} />
-  <Offers galleryImage={GalleryImage} />
+  <HeroSectionPage menudata={menudata} lang={lang} client:load />
+  <PopularDishes popularDishes={popularDishes} lang={lang} client:load />
+  <MenuSection plateCategories={[...plateCategories, ...drinkCategories]} lang={lang} client:load />
+  <AboutUs stats={stats} lang={lang} client:load />
+  <SocialSection lang={lang} client:load />
+  <DeliverySection deliveryOptions={deliveryOptions} lang={lang} client:load />
+  <ContactUs contactInfo={contactInfo} lang={lang} client:load />
 </Layout>

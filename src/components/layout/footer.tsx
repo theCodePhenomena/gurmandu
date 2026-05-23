@@ -1,10 +1,19 @@
-import { FacebookIcon, InstagramIcon, TwitterIcon, YoutubeIcon } from 'lucide-react'
+import { FacebookIcon, InstagramIcon } from 'lucide-react'
 
 import { Separator } from '@/components/ui/separator'
 
 import { footerData } from '@/assets/data/footer'
+import { ui, type Locale } from '@/i18n/ui'
 
-const Footer = () => {
+const TikTokIcon = ({ className }: { className?: string }) => (
+  <svg viewBox='0 0 24 24' fill='currentColor' className={className} aria-hidden='true'>
+    <path d='M21 8.5a8.5 8.5 0 0 1-5-1.6V16a6 6 0 1 1-6-6c.34 0 .68.03 1 .09v3.16a2.9 2.9 0 1 0 2 2.75V2h3a5.5 5.5 0 0 0 5 5.5z' />
+  </svg>
+)
+
+const Footer = ({ lang = 'ro' }: { lang?: Locale }) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
+
   return (
     <footer className='bg-muted' style={{ clipPath: 'polygon(0 16px, 100% 0, 100% 100%, 0 100%)' }}>
       <div className='mx-auto flex max-w-7xl items-center justify-between gap-3 px-4 py-4 max-md:flex-col sm:px-6 sm:py-6 md:gap-6 md:py-8'>
@@ -15,41 +24,41 @@ const Footer = () => {
         <div className='flex items-center gap-5 whitespace-nowrap'>
           {footerData.map(item => (
             <a
-              key={item.title}
+              key={item.href}
               href={item.href}
               className='text-foreground hover:text-primary text-base! hover:bg-transparent'
             >
-              {item.title}
+              {item.title[lang]}
             </a>
           ))}
         </div>
 
-        {/* TODO: replace `#` placeholders with real social profile URLs (Facebook, Instagram, Twitter/X, YouTube) once the client provides them. */}
+        {/* TODO: replace `#` placeholders with real social profile URLs (Instagram, Facebook, TikTok) once the client provides them. */}
         <div className='flex items-center gap-4'>
-          <a href='#' aria-label='Facebook' className='hover:text-primary'>
-            <FacebookIcon className='size-5' />
-          </a>
           <a href='#' aria-label='Instagram' className='hover:text-primary'>
             <InstagramIcon className='size-5' />
           </a>
-          <a href='#' aria-label='Twitter' className='hover:text-primary'>
-            <TwitterIcon className='size-5' />
+          <a href='#' aria-label='Facebook' className='hover:text-primary'>
+            <FacebookIcon className='size-5' />
           </a>
-          <a href='#' aria-label='YouTube' className='hover:text-primary'>
-            <YoutubeIcon className='size-5' />
+          <a href='#' aria-label='TikTok' className='hover:text-primary'>
+            <TikTokIcon className='size-5' />
           </a>
         </div>
       </div>
 
       <Separator />
 
-      <div className='mx-auto flex max-w-7xl justify-center px-4 py-8 sm:px-6'>
-        <p className='text-muted-foreground text-center text-balance'>
-          {`©${new Date().getFullYear()}`}{' '}
+      <div className='mx-auto flex max-w-7xl flex-col items-center gap-2 px-4 py-8 text-center sm:px-6'>
+        <p className='text-foreground text-base font-medium text-balance'>{t('footer.tagline')}</p>
+        <p className='text-muted-foreground text-sm'>{t('footer.cuisines')}</p>
+        <p className='text-muted-foreground mt-4 max-w-3xl text-xs text-balance'>{t('footer.legal')}</p>
+        <p className='text-muted-foreground mt-2 text-xs'>
+          {`© ${new Date().getFullYear()} `}
           <a href='/#home' className='hover:underline'>
-            GurMANDU
+            GurMANDU®
           </a>
-          , Made with ❤️ for better web.
+          . {t('footer.rights')}
         </p>
       </div>
     </footer>

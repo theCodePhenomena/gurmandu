@@ -73,14 +73,14 @@ const seoProps = Astro.props as Props
   </head>
   <body class='flex min-h-full w-full flex-auto flex-col'>
     <div class='flex flex-col'>
-      <Header navigationData={navigationData} client:load />
+      <Header navigationData={navigationData} lang={lang} client:load />
       <div class='fixed top-3 right-3 z-50'>
         <LanguageSwitcher />
       </div>
 
       <main class='flex flex-col pt-17.5 *:scroll-mt-16'><slot /></main>
 
-      <Footer client:load />
+      <Footer lang={lang} client:load />
     </div>
   </body>
 </html>

@@ -1,30 +1,92 @@
-export const popularDishes = [
+import type { Locale } from '@/i18n/ui'
+
+export type FeaturedDish = {
+  image: string
+  alt: string
+  name: Record<Locale, string>
+  weight: string
+  description: Record<Locale, string>
+}
+
+const img = (slug: string) => `https://picsum.photos/seed/featured-${slug}/800/600`
+
+export const popularDishes: FeaturedDish[] = [
   {
-    image: '/images/popular-dishes/grilled-herb-chicken.webp',
-    alt: 'Grilled Herb Chicken',
-    name: 'Grilled Herb Chicken',
-    type: 'Main course 🥘',
-    description: 'Juicy chicken grilled with herbs and served with garlic sauce.'
+    image: img('seafood-giant'),
+    alt: 'Platou Fructe de Mare GIGANT',
+    weight: '2.500 g',
+    name: {
+      ro: 'Platou Fructe de Mare GIGANT',
+      en: 'Seafood GIANT Platter'
+    },
+    description: {
+      ro: 'Caracatiță la grătar, creveți suculenți, scoici, inele de calamar și doradă — reunite pe un singur platou spectaculos, însoțite de cartofi aurii, lămâie, pită grecească și sosuri artizanale. Un festin mediteranean complet, pentru mesele care merită să fie amintite.',
+      en: 'Grilled octopus, juicy prawns, mussels, squid rings and sea bream — brought together on one spectacular platter, served with golden fries, lemon, Greek pita and house-made sauces. A complete Mediterranean feast, for meals worth remembering.'
+    }
   },
   {
-    image: '/images/popular-dishes/classic-margherita-pizza.webp',
-    alt: 'Classic Margherita Pizza',
-    name: 'Classic Margherita Pizza',
-    type: 'Main course 🍕',
-    description: 'Crispy crust, fresh mozzarella, and basil a true classic.'
+    image: img('fritto-misto-giant'),
+    alt: 'Fritto Misto GIGANT',
+    weight: '3.200 g',
+    name: {
+      ro: 'Fritto Misto GIGANT',
+      en: 'Fritto Misto GIANT'
+    },
+    description: {
+      ro: 'Creveți, midii, calamar și tentacule, pane în panko crocant și prăjite la perfecțiune. Servite cu cartofi, sos de usturoi și sweet chilli. Genul de platou pe care îl împărtășești — dacă ești suficient de generos.',
+      en: "Prawns, mussels, squid and tentacles, coated in crispy panko and fried to perfection. Served with fries, garlic sauce and sweet chilli. The kind of platter you share — if you're feeling generous enough."
+    }
   },
   {
-    image: '/images/popular-dishes/spicy-shrimp-linguine.webp',
-    alt: 'Spicy Shrimp Linguine',
-    name: 'Spicy Shrimp Linguine',
-    type: 'Main course 🥘',
-    description: 'Shrimp, chili, and creamy tomato sauce tossed to perfection.'
+    image: img('gurmandu-giant'),
+    alt: 'Platou GurMANDU GIGANT',
+    weight: '4.000 g',
+    name: {
+      ro: 'Platou GurMANDU GIGANT',
+      en: 'GurMANDU GIANT Platter'
+    },
+    description: {
+      ro: 'Tot ce avem noi mai bun, pe un singur platou. Boston steak de porc, mici tradiționali, pastramă de miel, cotlete, burger GurMANDU, frigărui, cocoșel la ceaun și crispy chicken — cu cartofi cu telemea, murături asortate și sosurile noastre. Un preparat pentru ocazii pe măsura sa.',
+      en: 'Everything we do best, on a single platter. Pork Boston steak, traditional Romanian mici, lamb pastrami, lamb chops, GurMANDU burger, pork skewers, cauldron-roasted chicken and crispy chicken — with cheesy fries, assorted pickles and our signature sauces. A dish worthy of the occasion.'
+    }
   },
   {
-    image: '/images/popular-dishes/chocolate-lava-cake.webp',
-    alt: 'Chocolate Lava Cake',
-    name: 'Chocolate Lava Cake',
-    type: 'Desert 🍫',
-    description: 'Warm molten cake with a scoop of vanilla ice cream.'
+    image: img('mix-cheese'),
+    alt: 'Platou Mix Brânzeturi',
+    weight: '550 g',
+    name: {
+      ro: 'Platou Mix Brânzeturi',
+      en: 'Mixed Cheese Platter'
+    },
+    description: {
+      ro: 'Cașcaval afumat, Brie, Gorgonzola, Parmezan, struguri proaspeți, măr și nuci — o selecție îngrijită pentru iubitorii de rafinament. Aperitivul ideal alături de un pahar de vin bun.',
+      en: 'Smoked cașcaval, Brie, Gorgonzola, Parmesan, fresh grapes, apple and walnuts — a curated selection for lovers of refinement. The perfect starter alongside a well-chosen glass of wine.'
+    }
+  },
+  {
+    image: img('snitzel-gurmandu'),
+    alt: 'Snitzel GurMANDU',
+    weight: '750 g',
+    name: {
+      ro: 'Snitzelul GurMANDU',
+      en: 'The GurMANDU Schnitzel'
+    },
+    description: {
+      ro: 'Pui, porc sau vită, crocant în panko, acoperit cu sos de roșii, mozzarella topită și parmezan. Cu bacon, șuncă și cartofi prăjiți. Un preparat simplu ca idee, complex ca experiență.',
+      en: 'Chicken, pork or beef — crispy in panko, topped with tomato sauce, melted mozzarella and parmesan. Served with bacon, ham and golden fries. Simple in concept, memorable in experience.'
+    }
+  },
+  {
+    image: img('tagliatelle-seafood'),
+    alt: 'Tagliatelle cu Fructe de Mare',
+    weight: '400 g',
+    name: {
+      ro: 'Tagliatelle cu Fructe de Mare',
+      en: 'Tagliatelle with Seafood'
+    },
+    description: {
+      ro: 'Paste al dente cu creveți, midii, calamar, vin alb, roșii cherry și unt. Un preparat care te poartă, fără avertisment, pe malul Mediteranei.',
+      en: 'Al dente pasta with prawns, mussels, squid, white wine, cherry tomatoes and butter. A dish that takes you, without warning, straight to the Mediterranean coast.'
+    }
   }
 ]

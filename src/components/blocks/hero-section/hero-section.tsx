@@ -9,6 +9,7 @@ import Autoplay from 'embla-carousel-autoplay'
 import { Button } from '@/components/ui/button'
 import { type CarouselApi, Carousel, CarouselContent, CarouselItem } from '@/components/ui/carousel'
 import { cn } from '@/lib/utils'
+import { ui, type Locale } from '@/i18n/ui'
 
 export type MenuData = {
   id: number
@@ -18,7 +19,8 @@ export type MenuData = {
   userComment: string
 }
 
-const HeroSection = ({ menudata }: { menudata: MenuData[] }) => {
+const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: Locale }) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
   const [mainApi, setMainApi] = useState<CarouselApi>()
   const [thumbApi, setThumbApi] = useState<CarouselApi>()
   const [current, setCurrent] = useState(0)
@@ -69,12 +71,10 @@ const HeroSection = ({ menudata }: { menudata: MenuData[] }) => {
         <div className='grid grid-cols-1 gap-6 gap-y-12 md:gap-y-16 lg:grid-cols-5'>
           <div className='flex w-full flex-col justify-center gap-5 max-lg:items-center lg:col-span-3 lg:h-95.5'>
             <h1 className='text-3xl leading-[1.29167] font-semibold text-balance max-lg:text-center sm:text-4xl lg:text-5xl'>
-              Fusion cuisine, three traditions, one modern table
+              {t('hero.title')}
             </h1>
 
-            <p className='text-muted-foreground max-w-xl text-xl max-lg:text-center'>
-              Romanian, Mediterranean and Italian recipes — reinvented with fresh ingredients in a contemporary setting.
-            </p>
+            <p className='text-muted-foreground max-w-xl text-xl max-lg:text-center'>{t('hero.subtitle')}</p>
 
             <div className='flex items-center gap-3.5'>
               <Button
@@ -83,7 +83,7 @@ const HeroSection = ({ menudata }: { menudata: MenuData[] }) => {
                 className='group relative w-fit overflow-hidden rounded-full text-base before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] before:duration-1000 hover:before:bg-[position:-100%_0,0_0] has-[>svg]:px-6 dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.2)_50%,transparent_75%,transparent_100%)]'
               >
                 <a href='#menu'>
-                  See menu
+                  {t('hero.cta.menu')}
                   <ArrowRightIcon className='transition-transform duration-200 group-hover:translate-x-0.5' />
                 </a>
               </Button>
@@ -92,7 +92,7 @@ const HeroSection = ({ menudata }: { menudata: MenuData[] }) => {
                 asChild
                 className='bg-primary/10 hover:bg-primary/20 text-primary rounded-full text-base'
               >
-                <a href='#contact-us'>Contact us</a>
+                <a href='#contact-us'>{t('hero.cta.book')}</a>
               </Button>
             </div>
           </div>

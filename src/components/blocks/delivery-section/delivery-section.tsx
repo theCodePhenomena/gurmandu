@@ -1,6 +1,7 @@
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
+import { ui, type Locale } from '@/i18n/ui'
 
 type DeliveryOption = {
   id: number
@@ -11,18 +12,20 @@ type DeliveryOption = {
   color: string
 }[]
 
-const DeliverySection = ({ deliveryOptions }: { deliveryOptions: DeliveryOption }) => {
+const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: DeliveryOption; lang?: Locale }) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
   return (
-    <section id='delivery' className='py-8 sm:py-16 lg:py-24'>
+    <section
+      id='delivery'
+      className='before:bg-muted relative py-8 before:absolute before:inset-0 before:-z-10 before:skew-y-3 sm:py-16 lg:py-24'
+    >
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <Badge variant='outline' className='text-sm font-normal'>
-            Delivery Options
+            {t('delivery.badge')}
           </Badge>
-          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Order with ease</h2>
-          <p className='text-muted-foreground text-xl'>
-            Choose your preferred delivery method or pick up your order directly from us. Fresh food, delivered fast.
-          </p>
+          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('delivery.title')}</h2>
+          <p className='text-muted-foreground text-xl'>{t('delivery.subtitle')}</p>
         </div>
 
         {/* Delivery Options Grid */}
@@ -43,7 +46,7 @@ const DeliverySection = ({ deliveryOptions }: { deliveryOptions: DeliveryOption 
 
                 <Button asChild className='w-full rounded-lg' variant={option.name === 'Take Away' ? 'default' : 'outline'}>
                   <a href={option.link} target={option.name !== 'Take Away' ? '_blank' : '_self'} rel='noopener noreferrer'>
-                    {option.name === 'Take Away' ? 'Call us' : 'Order now'}
+                    {option.name === 'Take Away' ? t('delivery.cta.call') : t('delivery.cta.order')}
                   </a>
                 </Button>
               </CardContent>

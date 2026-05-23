@@ -1,24 +1,25 @@
 import { Clock8Icon, MapPinIcon, Mail, PhoneIcon } from 'lucide-react'
 
+// TODO: replace placeholder address, phone, email and opening hours with the real values from the client.
 export const contactInfo = [
   {
-    title: 'Open Hours',
+    title: 'Program',
     icon: Clock8Icon,
-    description: 'Monday-Friday\n8:00 am to 5:00 pm'
+    description: 'Zilnic\n12:00 — 23:00'
   },
   {
-    title: 'Our Address',
+    title: 'Adresă',
     icon: MapPinIcon,
-    description: '802 Perston Rd,Maine\n96812, USA'
+    description: 'București\n[adresa exactă]'
   },
   {
     title: 'Email',
     icon: Mail,
-    description: 'info@seliziakitchen.com'
+    description: 'contact@gurmandu.ro'
   },
   {
-    title: 'Phone',
+    title: 'Telefon',
     icon: PhoneIcon,
-    description: '+1 (123) 456-7890'
+    description: '+40 [număr]'
   }
 ]

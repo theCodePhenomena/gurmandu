@@ -4,6 +4,7 @@ import { ArrowRightIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { ui, type Locale } from '@/i18n/ui'
 
 type Stat = {
   icon: ComponentType
@@ -11,7 +12,8 @@ type Stat = {
   description: string[]
 }
 
-const AboutUs = ({ stats }: { stats: Stat[] }) => {
+const AboutUs = ({ stats, lang = 'ro' }: { stats: Stat[]; lang?: Locale }) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
   return (
     <section
       id='about-us'
@@ -21,20 +23,17 @@ const AboutUs = ({ stats }: { stats: Stat[] }) => {
         {/* Header */}
         <div className='mx-auto mb-12 flex max-w-3xl flex-col items-center justify-center space-y-4 text-center md:mb-16 lg:mb-24'>
           <Badge variant='outline' className='text-sm font-normal'>
-            About Us
+            {t('about.badge')}
           </Badge>
-          <h2 className='text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl'>Fusion done right</h2>
-          <p className='text-muted-foreground text-xl'>
-            Romanian roots, Mediterranean warmth, Italian craft — served in a modern setting. Every plate brings the
-            three cuisines together with fresh ingredients and a contemporary touch.
-          </p>
+          <h2 className='text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl'>{t('about.title')}</h2>
+          <p className='text-muted-foreground text-xl whitespace-pre-line'>{t('about.text')}</p>
           <Button
             size='lg'
             asChild
             className='group relative w-fit overflow-hidden rounded-full text-base before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] before:duration-1000 hover:before:bg-[position:-100%_0,0_0] has-[>svg]:px-6 dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.2)_50%,transparent_75%,transparent_100%)]'
           >
-            <a href='#'>
-              Read more
+            <a href='#menu'>
+              {t('about.cta')}
               <ArrowRightIcon className='transition-transform duration-200 group-hover:translate-x-0.5' />
             </a>
           </Button>

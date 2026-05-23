@@ -11,8 +11,10 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/comp
 import MenuDropdown from '@/components/blocks/menu-dropdown'
 import MenuNavigation from '@/components/blocks/menu-navigation'
 import type { NavigationSection } from '@/components/blocks/menu-navigation'
+import type { LocalizedNavItem } from '@/assets/data/header'
 
 import { cn } from '@/lib/utils'
+import { ui, type Locale } from '@/i18n/ui'
 
 
 // Inline active section hook
@@ -57,15 +59,22 @@ const useActiveSection = (sectionIds: string[]) => {
 }
 
 type HeaderProps = {
-  navigationData: NavigationSection[]
+  navigationData: LocalizedNavItem[]
   className?: string
+  lang?: Locale
 }
 
-const Header = ({ navigationData, className }: HeaderProps) => {
+const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
+
+  const localizedNav: NavigationSection[] = navigationData.map(item => ({
+    title: item.title[lang],
+    href: item.href
+  }))
 
   // Extract section IDs from navigation data - only include valid sections
-  const sectionIds = navigationData.map(item => item.href?.replace('#', '')).filter(Boolean) as string[]
+  const sectionIds = localizedNav.map(item => item.href?.replace('#', '')).filter(Boolean) as string[]
 
   // Only use active section if it's actually in our navigation list
   const detectedActiveSection = useActiveSection(sectionIds)
@@ -102,7 +111,7 @@ const Header = ({ navigationData, className }: HeaderProps) => {
 
         {/* Navigation */}
         <MenuNavigation
-          navigationData={navigationData}
+          navigationData={localizedNav}
           activeSection={activeSection}
           className='**:data-[slot=navigation-menu-list]:gap-1 max-lg:hidden'
         />
@@ -114,7 +123,7 @@ const Header = ({ navigationData, className }: HeaderProps) => {
             className='group relative ml-4 w-fit overflow-hidden rounded-full text-base before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] before:duration-1000 hover:before:bg-[position:-100%_0,0_0] has-[>svg]:px-6 max-sm:hidden dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.2)_50%,transparent_75%,transparent_100%)]'
             asChild
           >
-            <a href='#contact-us'>Contact us</a>
+            <a href='#contact-us'>{t('hero.cta.book')}</a>
           </Button>
 
           {/* Mobile contact button */}
@@ -122,17 +131,17 @@ const Header = ({ navigationData, className }: HeaderProps) => {
             <Tooltip>
               <TooltipTrigger asChild>
                 <Button className='ml-4 rounded-full sm:hidden' asChild>
-                  <a href='#contact-us'>Contact us</a>
+                  <a href='#contact-us'>{t('hero.cta.book')}</a>
                 </Button>
               </TooltipTrigger>
-              <TooltipContent>Book table</TooltipContent>
+              <TooltipContent>{t('hero.cta.book')}</TooltipContent>
             </Tooltip>
           </TooltipProvider>
 
           {/* Mobile menu button */}
           <MenuDropdown
             align='end'
-            navigationData={navigationData}
+            navigationData={localizedNav}
             activeSection={activeSection}
             trigger={
               <Button variant='outline' size='icon' className='ml-3 rounded-full lg:hidden'>

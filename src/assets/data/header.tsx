@@ -1,20 +1,13 @@
-import type { NavigationSection } from '@/components/blocks/menu-navigation'
+import type { Locale } from '@/i18n/ui'
 
-export const navigationData: NavigationSection[] = [
-  {
-    title: 'About Us',
-    href: '#about-us'
-  },
-{
-    title: 'Delivery',
-    href: '#delivery'
-  },
-  {
-    title: 'Contact Us',
-    href: '#contact-us'
-  },
-  {
-    title: 'Offers',
-    href: '#offers'
-  }
+export type LocalizedNavItem = {
+  title: Record<Locale, string>
+  href: string
+}
+
+export const navigationData: LocalizedNavItem[] = [
+  { title: { ro: 'Meniu', en: 'Menu' }, href: '#menu' },
+  { title: { ro: 'Despre noi', en: 'About us' }, href: '#about-us' },
+  { title: { ro: 'Delivery', en: 'Delivery' }, href: '#delivery' },
+  { title: { ro: 'Contact', en: 'Contact' }, href: '#contact-us' }
 ]
