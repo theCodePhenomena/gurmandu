@@ -1,10 +1,12 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import type { PlateCategory } from '@/assets/data/menu'
+import type { Plate, PlateCategory } from '@/assets/data/menu'
 import { siteLang, siteCurrency } from '@/assets/data/menu'
 import type { Locale } from '@/i18n/ui'
 import { ui } from '@/i18n/ui'
+import { XIcon } from 'lucide-react'
 
 type MenuSectionProps = {
   plateCategories: PlateCategory[]
@@ -61,6 +63,13 @@ const allergenLabel = (codes: string | undefined, lang: Locale) => {
 
 const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
   const t = (key: keyof typeof ui.ro) => ui[lang][key]
+  const [selectedItem, setSelectedItem] = useState<{ plate: Plate; category: PlateCategory } | null>(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [dragOffset, setDragOffset] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartRef = useRef(0)
+  const closeTimeoutRef = useRef<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
 
   const [activeSlug, setActiveSlug] = useState<string>(() => {
     if (typeof window !== 'undefined') {
@@ -126,6 +135,124 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
     }, 1000)
   }
 
+  const closeModal = (options?: { preserveOffset?: boolean }) => {
+    setIsModalVisible(false)
+    if (!options?.preserveOffset) setDragOffset(0)
+    if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current)
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setSelectedItem(null)
+      setDragOffset(0)
+      closeTimeoutRef.current = null
+    }, 250)
+  }
+
+  useEffect(() => {
+    if (!selectedItem) return
+
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    document.addEventListener('keydown', handleKey)
+
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [selectedItem])
+
+  useEffect(() => {
+    if (!selectedItem) return
+
+    if (closeTimeoutRef.current) {
+      window.clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+
+    requestAnimationFrame(() => setIsModalVisible(true))
+  }, [selectedItem])
+
+  useEffect(() => {
+    if (!selectedItem) return
+    const previousOverflow = document.body.style.overflow
+
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [selectedItem])
+
+  useEffect(() => {
+    const updateScreen = () => {
+      if (typeof window === 'undefined') return
+      setIsMobile(window.matchMedia('(max-width: 639px)').matches)
+    }
+
+    updateScreen()
+    window.addEventListener('resize', updateScreen)
+
+    return () => window.removeEventListener('resize', updateScreen)
+  }, [])
+
+  useEffect(
+    () => () => {
+      if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current)
+    },
+    []
+  )
+
+  const handleSelectItem = (plate: Plate, category: PlateCategory) => {
+    setSelectedItem({ plate, category })
+    setDragOffset(0)
+  }
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    if (!isMobile) return
+    const touch = event.touches[0]
+
+    dragStartRef.current = touch.clientY
+    setIsDragging(true)
+  }
+
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    if (!isMobile || !isDragging) return
+    const touch = event.touches[0]
+    const delta = touch.clientY - dragStartRef.current
+
+    if (delta > 0) {
+      event.preventDefault()
+      setDragOffset(delta)
+    } else {
+      setDragOffset(0)
+    }
+  }
+
+  const finishTouch = (shouldClose: boolean) => {
+    if (shouldClose) {
+      closeModal({ preserveOffset: true })
+    } else {
+      setDragOffset(0)
+    }
+
+    setIsDragging(false)
+  }
+
+  const handleTouchEnd = () => {
+    if (!isMobile || !isDragging) return
+    finishTouch(dragOffset > 100)
+  }
+
+  const handleTouchCancel = () => {
+    if (!isMobile || !isDragging) return
+    finishTouch(false)
+  }
+
+  const mobileModalTransform = isMobile
+    ? isModalVisible
+      ? `translateY(${dragOffset}px)`
+      : 'translateY(100%)'
+    : undefined
+
   return (
     <section id='menu' className='py-8 sm:py-16 lg:py-24'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
@@ -185,9 +312,14 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                   const priceLabel = formatter.format(item.price)
 
                   return (
-                    <div
+                    <button
+                      type='button'
                       key={item.name.ro}
-                      className={cn('flex items-stretch justify-between gap-4 py-6', !hasImage && 'items-center')}
+                      onClick={() => handleSelectItem(item, cat)}
+                      className={cn(
+                        'group flex w-full items-stretch justify-between gap-4 py-6 text-left transition',
+                        !hasImage && 'items-center'
+                      )}
                     >
                       <div className='flex min-w-0 flex-1 flex-col'>
                         <dt className='text-xl font-bold sm:text-2xl'>
@@ -215,10 +347,15 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                       </div>
                       {hasImage && (
                         <div className='bg-muted shrink-0 overflow-hidden rounded-xl'>
-                          <img src={item.image} alt={item.name[lang]} loading='lazy' className='max-h-40' />
+                          <img
+                            src={item.image}
+                            alt={item.name[lang]}
+                            loading='lazy'
+                            className='max-h-40 w-full transition-transform duration-200 group-hover:scale-105'
+                          />
                         </div>
                       )}
-                    </div>
+                    </button>
                   )
                 })}
               </dl>
@@ -226,6 +363,72 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
           ))}
         </div>
       </div>
+
+      {selectedItem && (
+        <div
+          className='bg-background/80 fixed inset-0 z-100 flex items-center justify-center px-4 py-8 backdrop-blur-sm'
+          role='dialog'
+          aria-modal='true'
+          onClick={() => closeModal()}
+        >
+          <div
+            className={cn(
+              'bg-card relative flex w-full max-w-2xl flex-col overflow-hidden rounded-3xl shadow-2xl transition-transform duration-300',
+              isModalVisible ? 'translate-y-0' : 'translate-y-full sm:translate-y-0'
+            )}
+            style={{ transform: mobileModalTransform, transition: isDragging ? 'none' : undefined }}
+            onClick={event => event.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchCancel}
+          >
+            <div className='relative w-full overflow-hidden'>
+              {selectedItem.plate.image && (
+                <img
+                  src={selectedItem.plate.image}
+                  alt={selectedItem.plate.name[lang]}
+                  className='h-full w-full object-cover'
+                  loading='lazy'
+                />
+              )}
+              <Button
+                variant='secondary'
+                size='icon'
+                onClick={closeModal}
+                aria-label={t('menu.modal.close')}
+                className='bg-background/80 absolute top-5 right-5 rounded-full shadow-lg backdrop-blur transition hover:scale-105'
+              >
+                <XIcon className='size-5' />
+              </Button>
+            </div>
+            <div className='flex flex-1 flex-col gap-4 overflow-auto p-6 sm:p-8'>
+              <div className='space-y-1'>
+                <h3 className='text-2xl font-semibold sm:text-3xl'>{selectedItem.plate.name[lang]}</h3>
+                <p className='text-muted-foreground text-base sm:text-lg'>{selectedItem.plate.description[lang]}</p>
+              </div>
+              <div className='grid gap-4 sm:grid-cols-2'>
+                {selectedItem.plate.weight && (
+                  <div className='bg-muted/50 rounded-2xl p-4'>
+                    <p className='text-muted-foreground text-xs tracking-wide uppercase'>{t('menu.modal.weight')}</p>
+                    <p className='text-lg font-semibold'>{selectedItem.plate.weight}</p>
+                  </div>
+                )}
+                <div className='bg-muted/50 rounded-2xl p-4'>
+                  <p className='text-muted-foreground text-xs tracking-wide uppercase'>{t('menu.modal.price')}</p>
+                  <p className='text-lg font-semibold'>{formatter.format(selectedItem.plate.price)}</p>
+                </div>
+                {allergenLabel(selectedItem.plate.allergens, lang) && (
+                  <div className='bg-muted/50 rounded-2xl p-4 sm:col-span-2'>
+                    <p className='text-muted-foreground text-xs tracking-wide uppercase'>{t('menu.modal.allergens')}</p>
+                    <p className='text-sm'>{allergenLabel(selectedItem.plate.allergens, lang).trim()}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }

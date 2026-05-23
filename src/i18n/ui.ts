@@ -10,6 +10,10 @@ export const ui = {
     'menu.subtitle':
       'Bucătărie fără frontiere: tradiție românească, rafinament mediteranean, pasiune italiană.',
     'menu.allergens': 'Alergeni',
+    'menu.modal.close': 'Închide',
+    'menu.modal.weight': 'Gramaj',
+    'menu.modal.price': 'Preț',
+    'menu.modal.allergens': 'Alergeni',
 
     // Hero
     'hero.title': 'Ești gurmand? Ai ajuns acasă.',
@@ -68,6 +72,10 @@ export const ui = {
     'menu.subtitle':
       'A kitchen without borders: Romanian tradition, Mediterranean refinement, Italian passion.',
     'menu.allergens': 'Allergens',
+    'menu.modal.close': 'Close',
+    'menu.modal.weight': 'Serving size',
+    'menu.modal.price': 'Price',
+    'menu.modal.allergens': 'Allergens',
 
     'hero.title': "A foodie at heart? You're in the right place.",
     'hero.subtitle':
