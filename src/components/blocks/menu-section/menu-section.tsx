@@ -255,7 +255,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
 
   return (
     <section id='menu' className='py-8 sm:py-16 lg:py-24'>
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto max-w-7xl md:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <Badge variant='outline' className='text-sm font-normal'>
             {t('menu.badge')}
@@ -265,7 +265,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
         </div>
 
         {/* Sticky category nav */}
-        <div className='sticky top-20 z-40 mb-20'>
+        <div className='sticky top-16 z-40 mb-20 md:top-20'>
           <div aria-hidden='true' className='bg-background pointer-events-none absolute inset-x-0 -top-20 bottom-0' />
           <div
             aria-hidden='true'
@@ -299,7 +299,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
         </div>
 
         {/* Category sections */}
-        <div className='grid grid-cols-1 gap-y-16'>
+        <div className='grid grid-cols-1 gap-y-16 px-4 sm:px-6 lg:px-0'>
           {plateCategories.map(cat => (
             <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-8 divide-y'>
               <div className='mx-auto flex max-w-4xl flex-col items-start gap-2 py-6 text-center text-balance'>
@@ -322,7 +322,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                       )}
                     >
                       <div className='flex min-w-0 flex-1 flex-col'>
-                        <dt className='text-xl font-bold sm:text-2xl'>
+                        <dt className='text-lg font-bold sm:text-2xl'>
                           <span className='flex items-baseline justify-between gap-4'>
                             <span className='flex min-w-0 items-baseline gap-2'>
                               <span className='truncate'>{item.name[lang]}</span>
@@ -331,18 +331,20 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                               )}
                             </span>
                             {!hasImage && (
-                              <span className='text-primary text-lg font-semibold whitespace-nowrap sm:text-xl'>
+                              <span className='text-primary font-semibold whitespace-nowrap sm:text-lg'>
                                 {priceLabel}
                               </span>
                             )}
                           </span>
                         </dt>
                         <dd className='mt-1 flex flex-1 flex-col'>
-                          <p className='text-muted-foreground line-clamp-2 text-base'>
+                          <p className='text-muted-foreground line-clamp-2 text-sm sm:text-base'>
                             {item.description[lang]}
                             {allergenLabel(item.allergens, lang)}
                           </p>
-                          {hasImage && <p className='text-primary mt-auto pt-2 text-lg font-bold'>{priceLabel}</p>}
+                          {hasImage && (
+                            <p className='text-primary mt-auto font-bold sm:text-lg md:pt-2'>{priceLabel}</p>
+                          )}
                         </dd>
                       </div>
                       {hasImage && (
@@ -351,7 +353,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                             src={item.image}
                             alt={item.name[lang]}
                             loading='lazy'
-                            className='max-h-40 w-full transition-transform duration-200 group-hover:scale-105'
+                            className='max-h-24 w-full transition-transform duration-200 group-hover:scale-105 md:max-h-40'
                           />
                         </div>
                       )}
@@ -366,14 +368,14 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
 
       {selectedItem && (
         <div
-          className='bg-background/80 fixed inset-0 z-100 flex items-center justify-center px-4 py-8 backdrop-blur-sm'
+          className='bg-background/80 fixed inset-0 z-100 flex items-end justify-center backdrop-blur-sm md:items-center'
           role='dialog'
           aria-modal='true'
           onClick={() => closeModal()}
         >
           <div
             className={cn(
-              'bg-card relative flex w-full max-w-2xl flex-col overflow-hidden rounded-3xl shadow-2xl transition-transform duration-300',
+              'bg-card relative max-h-full w-full max-w-2xl overflow-hidden rounded-t-3xl shadow-2xl transition-transform duration-300 md:rounded-3xl',
               isModalVisible ? 'translate-y-0' : 'translate-y-full sm:translate-y-0'
             )}
             style={{ transform: mobileModalTransform, transition: isDragging ? 'none' : undefined }}
@@ -383,47 +385,38 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
             onTouchEnd={handleTouchEnd}
             onTouchCancel={handleTouchCancel}
           >
-            <div className='relative w-full overflow-hidden'>
-              {selectedItem.plate.image && (
-                <img
-                  src={selectedItem.plate.image}
-                  alt={selectedItem.plate.name[lang]}
-                  className='h-full w-full object-cover'
-                  loading='lazy'
-                />
-              )}
-              <Button
-                variant='secondary'
-                size='icon'
-                onClick={closeModal}
-                aria-label={t('menu.modal.close')}
-                className='bg-background/80 absolute top-5 right-5 rounded-full shadow-lg backdrop-blur transition hover:scale-105'
-              >
-                <XIcon className='size-5' />
-              </Button>
-            </div>
-            <div className='flex flex-1 flex-col gap-4 overflow-auto p-6 sm:p-8'>
-              <div className='space-y-1'>
-                <h3 className='text-2xl font-semibold sm:text-3xl'>{selectedItem.plate.name[lang]}</h3>
-                <p className='text-muted-foreground text-base sm:text-lg'>{selectedItem.plate.description[lang]}</p>
+            <Button
+              variant='secondary'
+              size='icon'
+              onClick={() => closeModal()}
+              aria-label={t('menu.modal.close')}
+              className='bg-background/80 absolute top-5 right-5 rounded-full shadow-lg backdrop-blur transition hover:scale-105'
+            >
+              <XIcon className='size-5' />
+            </Button>
+            <div className='h-auto max-h-[90vh] overflow-y-scroll'>
+              <div className='w-full overflow-hidden'>
+                {selectedItem.plate.image && (
+                  <img
+                    src={selectedItem.plate.image}
+                    alt={selectedItem.plate.name[lang]}
+                    className='h-full w-full object-cover'
+                    loading='lazy'
+                  />
+                )}
               </div>
-              <div className='grid gap-4 sm:grid-cols-2'>
-                {selectedItem.plate.weight && (
-                  <div className='bg-muted/50 rounded-2xl p-4'>
-                    <p className='text-muted-foreground text-xs tracking-wide uppercase'>{t('menu.modal.weight')}</p>
-                    <p className='text-lg font-semibold'>{selectedItem.plate.weight}</p>
+              <div className='flex flex-1 flex-col gap-4 p-6 pb-12 md:pb-8'>
+                <div className='space-y-1'>
+                  <h3 className='text-2xl font-semibold sm:text-3xl'>{selectedItem.plate.name[lang]}</h3>
+
+                  <div className='flex justify-between'>
+                    <span className='text-primary text-xl font-semibold'>
+                      {formatter.format(selectedItem.plate.price)}
+                    </span>
+                    <span className='text-muted-foreground font-normal'> {selectedItem.plate.weight}</span>
                   </div>
-                )}
-                <div className='bg-muted/50 rounded-2xl p-4'>
-                  <p className='text-muted-foreground text-xs tracking-wide uppercase'>{t('menu.modal.price')}</p>
-                  <p className='text-lg font-semibold'>{formatter.format(selectedItem.plate.price)}</p>
+                  <p className='text-muted-foreground text-base sm:text-lg'>{selectedItem.plate.description[lang]}</p>
                 </div>
-                {allergenLabel(selectedItem.plate.allergens, lang) && (
-                  <div className='bg-muted/50 rounded-2xl p-4 sm:col-span-2'>
-                    <p className='text-muted-foreground text-xs tracking-wide uppercase'>{t('menu.modal.allergens')}</p>
-                    <p className='text-sm'>{allergenLabel(selectedItem.plate.allergens, lang).trim()}</p>
-                  </div>
-                )}
               </div>
             </div>
           </div>
