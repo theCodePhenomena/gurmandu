@@ -286,7 +286,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                       onClick={() => handleClick(cat.slug)}
                       className={cn(
                         'rounded-full px-3 py-1 font-medium transition select-none',
-                        isActive ? 'bg-background text-primary' : 'hover:bg-background/10'
+                        isActive ? 'text-black' : 'hover:bg-background/10'
                       )}
                     >
                       {cat.prettyName[lang]}

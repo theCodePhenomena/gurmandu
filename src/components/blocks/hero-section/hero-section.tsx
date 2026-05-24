@@ -66,9 +66,9 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
       id='home'
       className='before:border-primary/20 relative flex-1 py-12 before:absolute before:inset-0 before:-z-10 before:-skew-y-3 before:border-b sm:py-16 lg:py-24'
     >
-      <div className='mx-auto flex h-full max-w-7xl flex-col gap-16 px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto flex h-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8'>
         {/* Hero Header */}
-        <div className='grid grid-cols-1 gap-6 gap-y-12 md:gap-y-16 lg:grid-cols-5'>
+        <div className='grid grid-cols-1 lg:grid-cols-5'>
           <div className='flex w-full flex-col justify-center gap-5 max-lg:items-center lg:col-span-3 lg:h-95.5'>
             <h1 className='text-3xl leading-[1.29167] font-semibold text-balance max-lg:text-center sm:text-4xl lg:text-5xl'>
               {t('hero.title')}
@@ -140,7 +140,7 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
                       />
                     </svg>
                   </div>
-                  <img src={item.img} alt={item.imgAlt} className='size-25' loading='lazy' />
+                  <img src={item.img} alt={item.imgAlt} className='aspect-12/9 h-5/6' loading='lazy' />
                 </div>
               </CarouselItem>
             ))}

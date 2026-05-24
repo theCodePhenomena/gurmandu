@@ -51,16 +51,16 @@ export const popularDishes: FeaturedDish[] = [
     }
   },
   {
-    image: img('gustari-reci/mix-branzeturi'),
-    alt: 'Platou Mix Brânzeturi',
-    weight: '550 g',
+    image: img('steak/tomahawk'),
+    alt: 'Tomahawk',
+    weight: '1.100 g',
     name: {
-      ro: 'Platou Mix Brânzeturi',
-      en: 'Mixed Cheese Platter'
+      ro: 'Tomahawk',
+      en: 'Tomahawk'
     },
     description: {
-      ro: 'Cașcaval afumat, Brie, Gorgonzola, Parmezan, struguri proaspeți, măr și nuci — o selecție îngrijită pentru iubitorii de rafinament. Aperitivul ideal alături de un pahar de vin bun.',
-      en: 'Smoked cașcaval, Brie, Gorgonzola, Parmesan, fresh grapes, apple and walnuts — a curated selection for lovers of refinement. The perfect starter alongside a well-chosen glass of wine.'
+      ro: 'O bucată impresionantă, maturată cu grijă și gătită la perfecțiune — cu crusta caramelizată pe grătar și inima fragedă, rozalie. Servit pe masă într-o tăcere respectuoasă, e steak-ul gândit pentru două persoane care știu ce vor.',
+      en: 'An impressive cut, carefully aged and cooked to perfection — caramelized crust from the grill, tender pink heart. Brought to the table in respectful silence, this is the steak built for two who know exactly what they want.'
     }
   },
   {
