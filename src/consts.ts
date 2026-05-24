@@ -1,46 +1,37 @@
 // Site Configuration
 // Centralized configuration for site metadata, SEO, and branding
 
-export const SITE_TITLE = 'Demo: Bistro - Restaurant Landing Page | Shadcn Studio'
+export const SITE_TITLE = 'GurMANDU — Fusion Restaurant'
 export const SITE_DESCRIPTION =
-  'Enjoy fresh ingredients, thoughtfully prepared meals, and a welcoming space designed for memorable moments. Experience bistro dining made simple and delicious.'
+  'Bucătărie fusion: rețete românești, mediteraneene și italiene reinventate într-un cadru modern. Ingrediente proaspete, preparate cu pasiune.'
 
-export const GITHUB_URL = 'https://github.com/yourusername/shadcn-astro-bistro-landing-page'
-export const SITE_URL = 'https://shadcnstudio.com/'
+export const SITE_URL = 'https://gurmandu-bucuresti.ro/'
 
 export const SITE_METADATA = {
   title: {
-    default: 'Demo: Bistro - Restaurant Landing Page | Shadcn Studio'
+    default: 'GurMANDU — Fusion Restaurant'
   },
-  description:
-    'Enjoy fresh ingredients, thoughtfully prepared meals, and a welcoming space designed for memorable moments. Experience bistro dining made simple and delicious.',
+  description: SITE_DESCRIPTION,
   keywords: [
-    'Astro',
-    'astro template',
-    'astro theme',
-    'astro starter',
-    'shadcn template',
-    'shadcn ui',
-    'shadcn/ui components',
-    'tailwind template',
-    'tailwind css',
-    'react components',
-    'SEO optimized',
-    'web development',
-    'static site generator',
-    'modern web apps',
-    'performance',
-    'typescript'
+    'GurMANDU',
+    'restaurant',
+    'fusion',
+    'bucătărie românească',
+    'mediterranean',
+    'italian',
+    'modern',
+    'fine dining',
+    'București'
   ],
-  authors: [{ name: 'shadcn Studio', url: SITE_URL }],
-  creator: 'shadcn Studio',
-  publisher: 'shadcn Studio',
+  authors: [{ name: 'GurMANDU', url: SITE_URL }],
+  creator: 'GurMANDU',
+  publisher: 'GurMANDU',
   robots: {
     index: true,
     follow: true
   },
-  language: 'en-US',
-  locale: 'en_US',
+  language: 'ro-RO',
+  locale: 'ro_RO',
   icons: {
     icon: [
       { url: '/favicon/favicon.ico', sizes: '48x48' },
@@ -54,63 +45,64 @@ export const SITE_METADATA = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_US',
-    siteName: 'Bistro',
-    title: 'Demo: Bistro - Restaurant Landing Page | Shadcn Studio',
-    description:
-      'Enjoy fresh ingredients, thoughtfully prepared meals, and a welcoming space designed for memorable moments. Experience bistro dining made simple and delicious.',
+    locale: 'ro_RO',
+    siteName: 'GurMANDU',
+    title: 'GurMANDU — Fusion Restaurant',
+    description: SITE_DESCRIPTION,
     images: [
       {
-        url: '/images/og-image.png',
+        url: '/images/gurmandu-logo.png',
         width: 1200,
         height: 630,
-        alt: 'Demo: Bistro - Restaurant Landing Page | Shadcn Studio',
+        alt: 'GurMANDU — Fusion Restaurant',
         type: 'image/png'
       }
     ]
   },
   twitter: {
     card: 'summary_large_image',
-    site: '@shadcnstudio',
-    creator: '@shadcnstudio',
-    title: 'Demo: Bistro - Restaurant Landing Page | Shadcn Studio',
-    description:
-      'Enjoy fresh ingredients, thoughtfully prepared meals, and a welcoming space designed for memorable moments. Experience bistro dining made simple and delicious.',
-    images: ['/images/og-image.png']
+    site: '@gurmandu',
+    creator: '@gurmandu',
+    title: 'GurMANDU — Fusion Restaurant',
+    description: SITE_DESCRIPTION,
+    images: ['/images/gurmandu-logo.png']
   },
   verification: {
-    google: '', // Add your Google verification code
-    yandex: '', // Add your Yandex verification code
-    bing: '' // Add your Bing verification code
+    google: '',
+    yandex: '',
+    bing: ''
   }
 }
 
-// Social media links
 export const SOCIAL_LINKS = {
-  github: GITHUB_URL,
-  twitter: 'https://twitter.com/shadcnstudio',
-  linkedin: 'https://linkedin.com/company/shadcnstudio',
-  discord: 'https://discord.gg/shadcnstudio'
+  facebook: 'https://www.facebook.com/profile.php?id=61572017660461',
+  instagram: 'https://www.instagram.com/gurmandu25/',
+  tiktok: 'https://www.tiktok.com/@gurmandu25'
 }
 
-// Company information for structured data
+export const ANPC_LINKS = {
+  anpc: 'https://anpc.ro/',
+  sal: 'https://anpc.ro/ce-este-sal/',
+  sol: 'https://ec.europa.eu/consumers/odr/'
+}
+
 export const COMPANY_INFO = {
-  name: 'shadcn Studio',
-  legalName: 'shadcn Studio Inc.',
+  name: 'GurMANDU',
+  legalName: 'GurMANDU',
   url: SITE_URL,
-  logo: `/images/site-logo.png`,
-  foundingDate: '2024',
+  logo: '/images/gurmandu-logo.png',
+  foundingDate: '2026',
   address: {
-    streetAddress: '123 Web Dev Street',
-    addressLocality: 'San Francisco',
-    addressRegion: 'CA',
-    postalCode: '94102',
-    addressCountry: 'US'
+    streetAddress: 'Bulevardul Decebal 20',
+    addressLocality: 'București',
+    addressRegion: 'București',
+    postalCode: '030969',
+    addressCountry: 'RO'
   },
   contactPoint: {
-    telephone: '+1-555-123-4567',
-    contactType: 'customer support',
-    email: 'support@shadcnstudio.com'
+    telephone: '+40730376165',
+    contactType: 'customer service',
+    email: 'gurmandu2026@gmail.com'
   },
   sameAs: Object.values(SOCIAL_LINKS)
 }

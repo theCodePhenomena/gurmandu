@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 
 export default defineConfig({
-  site: 'http://localhost:4321/',
+  site: 'https://gurmandu-bucuresti.ro/',
   integrations: [
     react(),
     mdx(),
@@ -61,6 +61,14 @@ export default defineConfig({
     })
   ],
   output: 'static',
+  i18n: {
+    defaultLocale: 'ro',
+    locales: ['ro', 'en'],
+    routing: {
+      prefixDefaultLocale: false,
+      redirectToDefaultLocale: false
+    }
+  },
   compressHTML: true,
   build: {
     inlineStylesheets: 'auto'

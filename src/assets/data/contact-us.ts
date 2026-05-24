@@ -1,24 +1,32 @@
-import { Clock8Icon, MapPinIcon, Mail, PhoneIcon } from 'lucide-react'
+import type { Locale } from '@/i18n/ui'
 
-export const contactInfo = [
+export type ContactIcon = 'clock' | 'map' | 'mail' | 'phone'
+
+export type ContactItem = {
+  title: Record<Locale, string>
+  icon: ContactIcon
+  description: string
+}
+
+export const contactInfo: ContactItem[] = [
   {
-    title: 'Open Hours',
-    icon: Clock8Icon,
-    description: 'Monday-Friday\n8:00 am to 5:00 pm'
+    title: { ro: 'Program', en: 'Hours' },
+    icon: 'clock',
+    description: 'Zilnic\n12:00 — 23:00'
   },
   {
-    title: 'Our Address',
-    icon: MapPinIcon,
-    description: '802 Perston Rd,Maine\n96812, USA'
+    title: { ro: 'Adresă', en: 'Address' },
+    icon: 'map',
+    description: 'Bulevardul Decebal 20\n030969 București'
   },
   {
-    title: 'Email',
-    icon: Mail,
-    description: 'info@seliziakitchen.com'
+    title: { ro: 'Email', en: 'Email' },
+    icon: 'mail',
+    description: 'gurmandu2026@gmail.com'
   },
   {
-    title: 'Phone',
-    icon: PhoneIcon,
-    description: '+1 (123) 456-7890'
+    title: { ro: 'Telefon', en: 'Phone' },
+    icon: 'phone',
+    description: '+40 730 376 165'
   }
 ]

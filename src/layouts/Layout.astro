@@ -7,6 +7,9 @@ import HeadSeo from '@/layouts/HeadSeo.astro'
 import Header from '@/components/layout/header'
 import Footer from '@/components/layout/footer'
 import { navigationData } from '@/assets/data/header'
+import { getLangFromUrl } from '@/i18n/utils'
+
+const lang = getLangFromUrl(Astro.url)
 
 interface Props {
   title?: string
@@ -26,38 +29,10 @@ const seoProps = Astro.props as Props
 ---
 
 <!doctype html>
-<html lang='en' class='scroll-smooth'>
+<html lang={lang} class='scroll-smooth'>
   <head>
     <HeadSeo {...seoProps} />
     <ClientRouter />
-    <script is:inline>
-      ;(function () {
-        const getTheme = () => {
-          if (typeof localStorage !== 'undefined') {
-            const stored = localStorage.getItem('theme')
-            if (stored === 'light' || stored === 'dark') {
-              return stored
-            }
-          }
-          return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
-        }
-
-        const applyTheme = () => {
-          const theme = getTheme()
-          if (theme === 'dark') {
-            document.documentElement.classList.add('dark')
-          } else {
-            document.documentElement.classList.remove('dark')
-          }
-        }
-
-        // Apply theme immediately on initial load
-        applyTheme()
-
-        // Re-apply theme on Astro page transitions
-        document.addEventListener('astro:page-load', applyTheme)
-      })()
-    </script>
     <style>
       /* Disable all view transitions while keeping client-side navigation */
       ::view-transition-group(*),
@@ -69,11 +44,11 @@ const seoProps = Astro.props as Props
   </head>
   <body class='flex min-h-full w-full flex-auto flex-col'>
     <div class='flex flex-col'>
-      <Header navigationData={navigationData} client:load />
+      <Header navigationData={navigationData} lang={lang} client:load />
 
       <main class='flex flex-col pt-17.5 *:scroll-mt-16'><slot /></main>
 
-      <Footer client:load />
+      <Footer lang={lang} client:load />
     </div>
   </body>
 </html>

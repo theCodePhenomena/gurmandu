@@ -1,7 +1,6 @@
 import { ArrowRightIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardTitle, CardDescription, CardHeader, CardFooter } from '@/components/ui/card'
 
 type NewItem = {
@@ -18,13 +17,9 @@ const NewItems = ({ newItems }: { newItems: NewItem }) => {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         {/* Header */}
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            New Items
-          </Badge>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Fresh menu items</h2>
           <p className='text-muted-foreground text-xl'>
-            Explore our most recent additions to the menu. Each dish is designed to delight your taste buds and provide
-            a memorable dining experience.
+            Newest fusion plates on the menu — Romanian, Mediterranean and Italian flavors with a modern twist.
           </p>
         </div>
 

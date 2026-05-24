@@ -1,74 +1,110 @@
-import type { ComponentType } from 'react'
+import { Clock8Icon, MapPinIcon, Mail, PhoneIcon } from 'lucide-react'
 
-import { Card, CardContent } from '@/components/ui/card'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
-import { Badge } from '@/components/ui/badge'
+import type { ContactIcon, ContactItem } from '@/assets/data/contact-us'
+import { ui, type Locale } from '@/i18n/ui'
 
-type ContactInfo = {
-  title: string
-  icon: ComponentType
-  description: string
-}[]
+const ICONS: Record<ContactIcon, typeof Clock8Icon> = {
+  clock: Clock8Icon,
+  map: MapPinIcon,
+  mail: Mail,
+  phone: PhoneIcon
+}
 
-const ContactUs = ({ contactInfo }: { contactInfo: ContactInfo }) => {
+const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; lang?: Locale }) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
+
+  const renderValue = (info: ContactItem) => {
+    const lines = info.description.split('\n')
+
+    if (info.icon === 'phone') {
+      const href = `tel:${info.description.replace(/\s+/g, '')}`
+
+      return (
+        <a href={href} className='hover:text-primary underline underline-offset-4 transition-colors'>
+          {info.description}
+        </a>
+      )
+    }
+
+    if (info.icon === 'mail') {
+      const href = `mailto:${info.description.trim()}`
+
+      return (
+        <a href={href} className='hover:text-primary underline underline-offset-4 transition-colors'>
+          {info.description}
+        </a>
+      )
+    }
+
+    if (info.icon === 'map') {
+      const href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+        info.description.replace(/\n/g, ', ')
+      )}`
+
+      return (
+        <a
+          href={href}
+          target='_blank'
+          rel='noopener noreferrer'
+          className='hover:text-primary underline underline-offset-4 transition-colors'
+        >
+          {lines.map((line, idx) => (
+            <span key={idx} className='block'>
+              {line}
+            </span>
+          ))}
+        </a>
+      )
+    }
+
+    return lines.map((line, idx) => (
+      <span key={idx} className='block'>
+        {line}
+      </span>
+    ))
+  }
+
   return (
-    <section
-      id='contact-us'
-      className='before:bg-muted relative py-8 before:absolute before:inset-0 before:-z-10 before:skew-y-3 sm:py-16 lg:py-24'
-    >
+    <section id='contact-us' className='bg-muted/40 py-8 sm:py-16 lg:py-24'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
-        {/* Header */}
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            Contact Us
-          </Badge>
-          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Get in touch with us </h2>
-          <p className='text-muted-foreground text-xl'>
-            We eagerly look forward to warmly welcoming you very soon to our event. It promises to be a memorable
-            experience filled with exciting activities.
-          </p>
+          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('contact.title')}</h2>
+          <p className='text-muted-foreground text-xl'>{t('contact.subtitle')}</p>
         </div>
 
         <div className='grid items-center gap-12 lg:grid-cols-2'>
-          <img
-            src='/images/contact-us-01.webp'
-            alt='Contact illustration'
-            className='size-full object-cover max-lg:max-h-70'
-            loading='lazy'
-          />
+          <div className='aspect-[4/3] w-full overflow-hidden rounded-2xl shadow-md max-lg:max-h-80'>
+            <iframe
+              title='GurMANDU location'
+              src='https://www.google.com/maps?q=Bulevardul+Decebal+20,+Bucure%C8%99ti&hl=ro&z=17&output=embed'
+              loading='lazy'
+              referrerPolicy='no-referrer-when-downgrade'
+              className='h-full w-full border-0'
+              allowFullScreen
+            />
+          </div>
 
           <div>
-            <h3 className='mb-2 text-2xl'>We&apos;re here to serve you</h3>
-            <p className='text-muted-foreground mb-10 text-lg'>
-              We would love to hear from you, Whether you have a question, need a reservation, or want to learn more
-              about our offerings, we&apos;re here to assist.
-            </p>
+            <h3 className='mb-2 text-2xl'>{lang === 'ro' ? 'Suntem aici pentru tine' : "We're here to serve you"}</h3>
+            <p className='text-muted-foreground mb-8 text-lg'>{t('contact.note')}</p>
 
-            {/* Contact Info Grid */}
-            <div className='grid gap-6 sm:grid-cols-2'>
-              {contactInfo.map((info, index) => (
-                <Card
-                  className='bg-background hover:border-primary rounded-none shadow-none transition-colors duration-300'
-                  key={index}
-                >
-                  <CardContent className='flex flex-col items-center gap-4 text-center'>
-                    <Avatar className='size-9 border'>
-                      <AvatarFallback className='bg-transparent [&>svg]:size-5'>
-                        <info.icon />
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className='space-y-3'>
-                      <h4 className='text-lg font-semibold'>{info.title}</h4>
-                      <div className='text-muted-foreground text-base font-medium'>
-                        {info.description.split('\n').map((line, idx) => (
-                          <p key={idx}>{line}</p>
-                        ))}
-                      </div>
+            <dl className='space-y-5'>
+              {contactInfo.map((info, index) => {
+                const Icon = ICONS[info.icon]
+
+                return (
+                  <div key={index} className='flex items-start gap-3'>
+                    <Icon className='text-primary mt-1 size-5 shrink-0' aria-hidden='true' />
+                    <div className='flex flex-col gap-1'>
+                      <dt className='text-foreground text-sm font-semibold tracking-wide uppercase'>
+                        {info.title[lang]}
+                      </dt>
+                      <dd className='text-muted-foreground text-base'>{renderValue(info)}</dd>
                     </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+                  </div>
+                )
+              })}
+            </dl>
           </div>
         </div>
       </div>

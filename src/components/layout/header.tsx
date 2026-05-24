@@ -2,19 +2,17 @@
 
 import { useEffect, useState } from 'react'
 
-import ThemeToggle from '@/components/layout/theme-toggle'
 import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
-import MenuDropdown from '@/components/blocks/menu-dropdown'
+import MobileMenu from '@/components/blocks/mobile-menu'
 import MenuNavigation from '@/components/blocks/menu-navigation'
 import type { NavigationSection } from '@/components/blocks/menu-navigation'
+import type { LocalizedNavItem } from '@/assets/data/header'
 
 import { cn } from '@/lib/utils'
-
-import BistroLogo from '@/assets/svg/bistro-logo'
+import { locales, type Locale } from '@/i18n/ui'
 
 // Inline active section hook
 const useActiveSection = (sectionIds: string[]) => {
@@ -58,15 +56,29 @@ const useActiveSection = (sectionIds: string[]) => {
 }
 
 type HeaderProps = {
-  navigationData: NavigationSection[]
+  navigationData: LocalizedNavItem[]
   className?: string
+  lang?: Locale
 }
 
-const Header = ({ navigationData, className }: HeaderProps) => {
+const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
 
+  const prefix = lang === 'ro' ? '' : `/${lang}`
+  const localizeHref = (href: string) => {
+    if (!href || href.startsWith('#') || href.startsWith('http')) return href
+    if (href === '/') return prefix || '/'
+    if (href.startsWith('/#')) return `${prefix}${href}`
+    return `${prefix}${href}`
+  }
+
+  const localizedNav: NavigationSection[] = navigationData.map(item => ({
+    title: item.title[lang],
+    href: localizeHref(item.href)
+  }))
+
   // Extract section IDs from navigation data - only include valid sections
-  const sectionIds = navigationData.map(item => item.href?.replace('#', '')).filter(Boolean) as string[]
+  const sectionIds = localizedNav.map(item => item.href?.replace('#', '')).filter(Boolean) as string[]
 
   // Only use active section if it's actually in our navigation list
   const detectedActiveSection = useActiveSection(sectionIds)
@@ -97,44 +109,47 @@ const Header = ({ navigationData, className }: HeaderProps) => {
     >
       <div className='mx-auto flex h-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8'>
         {/* Logo */}
-        <a href='/#home' className='flex items-center gap-3'>
-          <BistroLogo />
-          <span className='text-primary text-[20px] font-semibold'>Bistro</span>
+        <a href='/#home' className='flex items-center'>
+          <img src='/images/gurmandu-logo.png' alt='GurMANDU' className='h-16 w-auto' />
         </a>
 
         {/* Navigation */}
         <MenuNavigation
-          navigationData={navigationData}
+          navigationData={localizedNav}
           activeSection={activeSection}
           className='**:data-[slot=navigation-menu-list]:gap-1 max-lg:hidden'
         />
 
         {/* Actions */}
-        <div className='flex items-center'>
-          <ThemeToggle />
-          <Button
-            className='group relative ml-4 w-fit overflow-hidden rounded-full text-base before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] before:duration-1000 hover:before:bg-[position:-100%_0,0_0] has-[>svg]:px-6 max-sm:hidden dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.2)_50%,transparent_75%,transparent_100%)]'
-            asChild
+        <div className='flex items-center gap-2'>
+          <div
+            aria-label='Language'
+            className='bg-muted/60 flex items-center gap-0.5 rounded-full p-0.5 text-xs font-semibold'
           >
-            <a href='#contact-us'>Book table</a>
-          </Button>
+            {locales.map(loc => {
+              const isCurrent = loc === lang
+              const href = loc === 'ro' ? '/' : `/${loc}/`
 
-          {/* Mobile book table button */}
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button className='ml-4 rounded-full sm:hidden' asChild>
-                  <a href='#contact-us'>Book table</a>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>Book table</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
+              return (
+                <a
+                  key={loc}
+                  href={href}
+                  aria-current={isCurrent ? 'page' : undefined}
+                  className={cn(
+                    'rounded-full px-2.5 py-1 tracking-wide uppercase transition select-none',
+                    isCurrent
+                      ? 'bg-background text-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  )}
+                >
+                  {loc}
+                </a>
+              )
+            })}
+          </div>
           {/* Mobile menu button */}
-          <MenuDropdown
-            align='end'
-            navigationData={navigationData}
+          <MobileMenu
+            navigationData={localizedNav}
             activeSection={activeSection}
             trigger={
               <Button variant='outline' size='icon' className='ml-3 rounded-full lg:hidden'>

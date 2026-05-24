@@ -1,21 +1,91 @@
-import { useEffect, useRef, useState } from 'react'
-import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
-import type { PlateCategory } from '@/assets/data/menu'
+import { useEffect, useRef, useState, type TouchEvent } from 'react'
+import { Button } from '@/components/ui/button'
+import { cn, plateAnchor } from '@/lib/utils'
+import type { Plate, PlateCategory } from '@/assets/data/menu'
 import { siteLang, siteCurrency } from '@/assets/data/menu'
+import type { Locale } from '@/i18n/ui'
+import { ui } from '@/i18n/ui'
+import { XIcon } from 'lucide-react'
 
 type MenuSectionProps = {
   plateCategories: PlateCategory[]
+  lang?: Locale
 }
 
-const MenuSection = ({ plateCategories }: MenuSectionProps) => {
-  const [activeSlug, setActiveSlug] = useState<string>(plateCategories[0]?.slug ?? '')
+const ALLERGEN_NAMES: Record<Locale, Record<string, string>> = {
+  ro: {
+    '1': 'gluten',
+    '2': 'crustacee',
+    '3': 'ouă',
+    '4': 'pește',
+    '5': 'arahide',
+    '6': 'soia',
+    '7': 'lapte',
+    '8': 'fructe cu coajă',
+    '9': 'țelină',
+    '10': 'muștar',
+    '11': 'susan',
+    '12': 'sulfiți',
+    '13': 'lupin',
+    '14': 'moluște'
+  },
+  en: {
+    '1': 'gluten',
+    '2': 'crustaceans',
+    '3': 'eggs',
+    '4': 'fish',
+    '5': 'peanuts',
+    '6': 'soy',
+    '7': 'milk',
+    '8': 'tree nuts',
+    '9': 'celery',
+    '10': 'mustard',
+    '11': 'sesame',
+    '12': 'sulfites',
+    '13': 'lupin',
+    '14': 'molluscs'
+  }
+}
+
+const allergenLabel = (codes: string | undefined, lang: Locale) => {
+  if (!codes) return ''
+
+  const map = ALLERGEN_NAMES[lang]
+
+  const names = codes
+    .split(',')
+    .map(c => map[c.trim()])
+    .filter(Boolean)
+
+  return names.length ? ` ${ui[lang]['menu.allergens']}: ${names.join(', ')}` : ''
+}
+
+const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
+  const t = (key: keyof typeof ui.ro) => ui[lang][key]
+  const [selectedItem, setSelectedItem] = useState<{ plate: Plate; category: PlateCategory } | null>(null)
+  const [isModalVisible, setIsModalVisible] = useState(false)
+  const [dragOffset, setDragOffset] = useState(0)
+  const [isDragging, setIsDragging] = useState(false)
+  const dragStartRef = useRef(0)
+  const closeTimeoutRef = useRef<number | null>(null)
+  const [isMobile, setIsMobile] = useState(false)
+
+  const [activeSlug, setActiveSlug] = useState<string>(() => {
+    if (typeof window !== 'undefined') {
+      const hash = window.location.hash.substring(1)
+
+      if (hash && plateCategories.some(c => c.slug === hash)) return hash
+    }
+
+    return plateCategories[0]?.slug ?? ''
+  })
+
   const navRef = useRef<HTMLUListElement>(null)
   const linkRefs = useRef<Record<string, HTMLAnchorElement | null>>({})
   const isNavigatingByClick = useRef(false)
   const clickTimeout = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  const formatter = new Intl.NumberFormat(siteLang.replace('_', '-'), {
+  const formatter = new Intl.NumberFormat(siteLang[lang], {
     style: 'currency',
     currency: siteCurrency
   })
@@ -38,12 +108,6 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
     )
 
     sections.forEach(s => observer.observe(s))
-
-    const hash = window.location.hash.substring(1)
-
-    if (hash && plateCategories.some(c => c.slug === hash)) {
-      setActiveSlug(hash)
-    }
 
     return () => observer.disconnect()
   }, [plateCategories])
@@ -70,27 +134,163 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
     }, 1000)
   }
 
+  const closeModal = (options?: { preserveOffset?: boolean }) => {
+    setIsModalVisible(false)
+    if (!options?.preserveOffset) setDragOffset(0)
+    if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current)
+    closeTimeoutRef.current = window.setTimeout(() => {
+      setSelectedItem(null)
+      setDragOffset(0)
+      closeTimeoutRef.current = null
+    }, 250)
+  }
+
+  useEffect(() => {
+    if (!selectedItem) return
+
+    const handleKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') {
+        closeModal()
+      }
+    }
+
+    document.addEventListener('keydown', handleKey)
+
+    return () => document.removeEventListener('keydown', handleKey)
+  }, [selectedItem])
+
+  useEffect(() => {
+    if (!selectedItem) return
+
+    if (closeTimeoutRef.current) {
+      window.clearTimeout(closeTimeoutRef.current)
+      closeTimeoutRef.current = null
+    }
+
+    requestAnimationFrame(() => setIsModalVisible(true))
+  }, [selectedItem])
+
+  useEffect(() => {
+    if (!selectedItem) return
+    const previousOverflow = document.body.style.overflow
+
+    document.body.style.overflow = 'hidden'
+
+    return () => {
+      document.body.style.overflow = previousOverflow
+    }
+  }, [selectedItem])
+
+  useEffect(() => {
+    const updateScreen = () => {
+      if (typeof window === 'undefined') return
+      setIsMobile(window.matchMedia('(max-width: 639px)').matches)
+    }
+
+    updateScreen()
+    window.addEventListener('resize', updateScreen)
+
+    return () => window.removeEventListener('resize', updateScreen)
+  }, [])
+
+  useEffect(
+    () => () => {
+      if (closeTimeoutRef.current) window.clearTimeout(closeTimeoutRef.current)
+    },
+    []
+  )
+
+  useEffect(() => {
+    const openFromHash = () => {
+      const hash = window.location.hash.replace(/^#/, '')
+
+      if (!hash.startsWith('plate-')) return
+      const target = hash.slice('plate-'.length)
+
+      for (const cat of plateCategories) {
+        const plate = cat.plates.find(p => plateAnchor(p.name.ro) === `plate-${target}`)
+
+        if (plate) {
+          setSelectedItem({ plate, category: cat })
+          break
+        }
+      }
+    }
+
+    openFromHash()
+    window.addEventListener('hashchange', openFromHash)
+
+    return () => window.removeEventListener('hashchange', openFromHash)
+  }, [plateCategories])
+
+  const handleSelectItem = (plate: Plate, category: PlateCategory) => {
+    setSelectedItem({ plate, category })
+    setDragOffset(0)
+  }
+
+  const handleTouchStart = (event: TouchEvent<HTMLDivElement>) => {
+    if (!isMobile) return
+    const touch = event.touches[0]
+
+    dragStartRef.current = touch.clientY
+    setIsDragging(true)
+  }
+
+  const handleTouchMove = (event: TouchEvent<HTMLDivElement>) => {
+    if (!isMobile || !isDragging) return
+    const touch = event.touches[0]
+    const delta = touch.clientY - dragStartRef.current
+
+    if (delta > 0) {
+      event.preventDefault()
+      setDragOffset(delta)
+    } else {
+      setDragOffset(0)
+    }
+  }
+
+  const finishTouch = (shouldClose: boolean) => {
+    if (shouldClose) {
+      closeModal({ preserveOffset: true })
+    } else {
+      setDragOffset(0)
+    }
+
+    setIsDragging(false)
+  }
+
+  const handleTouchEnd = () => {
+    if (!isMobile || !isDragging) return
+    finishTouch(dragOffset > 100)
+  }
+
+  const handleTouchCancel = () => {
+    if (!isMobile || !isDragging) return
+    finishTouch(false)
+  }
+
+  const mobileModalTransform = isMobile
+    ? isModalVisible
+      ? `translateY(${dragOffset}px)`
+      : 'translateY(100%)'
+    : undefined
+
   return (
     <section id='menu' className='py-8 sm:py-16 lg:py-24'>
-      <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
+      <div className='mx-auto max-w-7xl md:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            Menu
-          </Badge>
-          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Our menu</h2>
-          <p className='text-muted-foreground text-xl'>
-            We offer a variety of dishes, from traditional to modern, that are sure to satisfy your cravings.
-          </p>
+          <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('menu.title')}</h2>
+          <p className='text-muted-foreground text-xl'>{t('menu.subtitle')}</p>
         </div>
 
         {/* Sticky category nav */}
-        <div className='sticky top-20 z-40 mb-20'>
+        <div className='sticky top-16 z-40 mb-20 md:top-20'>
           <div aria-hidden='true' className='bg-background pointer-events-none absolute inset-x-0 -top-20 bottom-0' />
           <div
             aria-hidden='true'
             className='from-background from-0 pointer-events-none absolute inset-x-0 top-full h-10 bg-linear-to-b to-transparent'
           />
-          <nav className='bg-primary text-primary-foreground relative mx-auto max-w-5xl sm:rounded-full'>
+          <nav className='bg-primary/5 text-muted-foreground relative mx-auto max-w-5xl shadow-sm sm:rounded-full'>
             <ul ref={navRef} className='no-scrollbar flex gap-8 overflow-x-auto px-2.5 py-3'>
               {plateCategories.map(cat => {
                 const isActive = activeSlug === cat.slug
@@ -105,10 +305,10 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
                       onClick={() => handleClick(cat.slug)}
                       className={cn(
                         'rounded-full px-3 py-1 font-medium transition select-none',
-                        isActive ? 'bg-background text-primary' : 'hover:bg-background/10'
+                        isActive ? 'text-primary' : ''
                       )}
                     >
-                      {cat.prettyName}
+                      {cat.prettyName[lang]}
                     </a>
                   </li>
                 )
@@ -118,37 +318,144 @@ const MenuSection = ({ plateCategories }: MenuSectionProps) => {
         </div>
 
         {/* Category sections */}
-        <div className='grid grid-cols-1 gap-y-32'>
+        <div className='grid grid-cols-1 gap-y-16 px-4 sm:px-6 lg:px-0'>
           {plateCategories.map(cat => (
-            <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-16'>
-              <div className='mx-auto flex max-w-lg flex-col items-center gap-2 text-center text-balance'>
-                <h3 className='text-primary/80 text-2xl font-semibold md:text-3xl'>{cat.prettyName}</h3>
-                <p className='text-muted-foreground'>{cat.description}</p>
+            <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-8 divide-y'>
+              <div className='mx-auto flex max-w-4xl flex-col items-start gap-2 py-6 text-center text-balance'>
+                <h3 className='text-primary/80 text-2xl font-semibold md:text-4xl'>{cat.prettyName[lang]}</h3>
               </div>
 
-              <dl className='mx-auto max-w-5xl'>
-                <div className='grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-x-16 xl:gap-x-32'>
-                  {cat.plates.map(item => (
-                    <div key={item.name}>
-                      <dt>
-                        <div className='flex items-center justify-between'>
-                          <span className='text-2xl font-bold tracking-wide'>{item.name}</span>
-                          <span className='text-lg font-medium'>{formatter.format(item.price)}</span>
+              <dl className='mx-auto flex max-w-4xl flex-col divide-y'>
+                {cat.plates.map((item, idx) => {
+                  const hasImage = Boolean(item.image)
+                  const priceLabel = formatter.format(item.price)
+
+                  return (
+                    <button
+                      type='button'
+                      key={`${item.name.ro}-${item.weight ?? ''}-${idx}`}
+                      id={plateAnchor(item.name.ro)}
+                      onClick={() => handleSelectItem(item, cat)}
+                      className={cn(
+                        'group flex w-full scroll-mt-40 items-stretch justify-between gap-4 py-6 text-left transition',
+                        !hasImage && 'items-center'
+                      )}
+                    >
+                      <div className='flex min-w-0 flex-1 flex-col'>
+                        <dt className='text-lg font-bold sm:text-2xl'>
+                          <span className='flex items-baseline justify-between gap-4'>
+                            <span className='flex min-w-0 items-baseline gap-2'>
+                              <span className='truncate'>{item.name[lang]}</span>
+                              {item.weight && (
+                                <span className='text-muted-foreground text-base font-normal'>{item.weight}</span>
+                              )}
+                            </span>
+                            {!hasImage && (
+                              <span className='text-primary font-semibold whitespace-nowrap sm:text-lg'>
+                                {priceLabel}
+                              </span>
+                            )}
+                          </span>
+                        </dt>
+                        <dd className='mt-1 flex flex-1 flex-col'>
+                          <p className='text-muted-foreground line-clamp-2 text-sm sm:text-base'>
+                            {item.description[lang]}
+                            {allergenLabel(item.allergens, lang)}
+                          </p>
+                          {hasImage && (
+                            <p className='text-primary mt-auto font-bold sm:text-lg md:pt-2'>{priceLabel}</p>
+                          )}
+                        </dd>
+                      </div>
+                      {hasImage && (
+                        <div className='bg-muted shrink-0 overflow-hidden rounded-xl shadow-lg group-hover:shadow-xl'>
+                          <img
+                            src={item.image}
+                            alt={item.name[lang]}
+                            loading='lazy'
+                            className='max-h-24 w-full transition-transform duration-200 group-hover:scale-105 md:max-h-40'
+                          />
                         </div>
-                      </dt>
-                      <dd>
-                        <p className='text-muted-foreground mt-2 leading-normal tracking-wide text-balance'>
-                          {item.description}
-                        </p>
-                      </dd>
-                    </div>
-                  ))}
-                </div>
+                      )}
+                    </button>
+                  )
+                })}
               </dl>
             </div>
           ))}
         </div>
+
+        <div className='mt-12 flex justify-center px-4 text-center sm:px-6 lg:px-8'>
+          <a
+            href='/files/valori-nutritionale.docx'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-muted-foreground hover:text-primary text-sm underline underline-offset-4 transition-colors'
+          >
+            {t('menu.nutrition.link')}
+          </a>
+        </div>
       </div>
+
+      {selectedItem && (
+        <div
+          className='bg-background/80 fixed inset-0 z-100 flex items-end justify-center backdrop-blur-sm md:items-center'
+          role='dialog'
+          aria-modal='true'
+          onClick={() => closeModal()}
+        >
+          <div
+            className={cn(
+              'bg-card relative max-h-full w-full max-w-2xl overflow-hidden rounded-t-3xl shadow-2xl transition-transform duration-300 md:rounded-3xl',
+              isModalVisible ? 'translate-y-0' : 'translate-y-full sm:translate-y-0'
+            )}
+            style={{ transform: mobileModalTransform, transition: isDragging ? 'none' : undefined }}
+            onClick={event => event.stopPropagation()}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+            onTouchCancel={handleTouchCancel}
+          >
+            <Button
+              variant='secondary'
+              size='icon'
+              onClick={() => closeModal()}
+              aria-label={t('menu.modal.close')}
+              className='bg-background/80 absolute top-5 right-5 rounded-full shadow-lg backdrop-blur transition hover:scale-105'
+            >
+              <XIcon className='size-5' />
+            </Button>
+            <div className='h-auto max-h-[90vh] overflow-y-scroll'>
+              <div className='w-full overflow-hidden'>
+                {selectedItem.plate.image && (
+                  <img
+                    src={selectedItem.plate.image}
+                    alt={selectedItem.plate.name[lang]}
+                    className='h-full w-full object-cover'
+                    loading='lazy'
+                  />
+                )}
+              </div>
+              <div className='flex flex-1 flex-col gap-4 p-6 pb-12 md:pb-8'>
+                <div className='space-y-1'>
+                  <h3 className='max-w-[90%] text-2xl font-semibold sm:text-3xl'>{selectedItem.plate.name[lang]}</h3>
+
+                  <div className='flex justify-between'>
+                    <span className='text-primary text-xl font-semibold'>
+                      {formatter.format(selectedItem.plate.price)}
+                    </span>
+                    <span className='text-muted-foreground font-normal'> {selectedItem.plate.weight}</span>
+                  </div>
+                  <p className='text-muted-foreground text-base sm:text-lg'>{selectedItem.plate.description[lang]}</p>
+                  {selectedItem.plate.nutrition && (
+                    <p className='text-muted-foreground/80 text-xs leading-relaxed'>{selectedItem.plate.nutrition}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       <style>{`
         .no-scrollbar::-webkit-scrollbar { display: none; }
