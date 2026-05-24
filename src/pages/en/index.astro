@@ -2,17 +2,15 @@
 import Layout from '@/layouts/Layout.astro'
 import HeroSectionPage from '@/components/blocks/hero-section/hero-section'
 import PopularDishes from '@/components/blocks/popular-dishes/popular-dishes'
-import AboutUs from '@/components/blocks/about-us-section/about-us-page'
+import MenuSection from '@/components/blocks/menu-section/menu-section'
 import DeliverySection from '@/components/blocks/delivery-section/delivery-section'
 import ContactUs from '@/components/blocks/contact-us-section/contact-us-page'
-import MenuSection from '@/components/blocks/menu-section/menu-section'
 import SocialSection from '@/components/blocks/social-section/social-section'
 
 import { menudata } from '@/assets/data/hero'
 import { plateCategories } from '@/assets/data/menu'
 import { drinkCategories } from '@/assets/data/drinks'
 import { popularDishes } from '@/assets/data/popular-dishes'
-import { stats } from '@/assets/data/about-us'
 import { deliveryOptions } from '@/assets/data/delivery'
 import { contactInfo } from '@/assets/data/contact-us'
 import { getLangFromUrl } from '@/i18n/utils'
@@ -22,7 +20,7 @@ const lang = getLangFromUrl(Astro.url)
 const pageTitle = ''
 const pageDescription =
   'Fusion cuisine: Romanian, Mediterranean and Italian recipes, reimagined in a modern setting. Fresh ingredients, prepared with passion.'
-const pageKeywords = 'restaurant, fusion, Romanian cuisine, Mediterranean, Italian, modern, GurMANDU'
+const pageKeywords = 'restaurant, fusion, Romanian cuisine, Mediterranean, Italian, modern, GurMANDU, Bucharest'
 
 const schema = {
   '@context': 'https://schema.org',
@@ -30,7 +28,16 @@ const schema = {
   name: 'GurMANDU',
   description: pageDescription,
   servesCuisine: ['Romanian', 'Mediterranean', 'Italian', 'Fusion'],
-  priceRange: '$$'
+  priceRange: '$$',
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: 'Bulevardul Decebal 20',
+    addressLocality: 'Bucharest',
+    postalCode: '030969',
+    addressCountry: 'RO'
+  },
+  telephone: '+40730376165',
+  email: 'gurmandu2026@gmail.com'
 }
 ---
 
@@ -38,8 +45,7 @@ const schema = {
   <HeroSectionPage menudata={menudata} lang={lang} client:load />
   <PopularDishes popularDishes={popularDishes} lang={lang} client:load />
   <MenuSection plateCategories={[...plateCategories, ...drinkCategories]} lang={lang} client:load />
-  <AboutUs stats={stats} lang={lang} client:load />
-  <SocialSection lang={lang} client:load />
   <DeliverySection deliveryOptions={deliveryOptions} lang={lang} client:load />
+  <SocialSection lang={lang} client:load />
   <ContactUs contactInfo={contactInfo} lang={lang} client:load />
 </Layout>

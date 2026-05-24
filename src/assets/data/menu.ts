@@ -83,7 +83,9 @@ export const plateCategories: PlateCategory[] = [
         description: p('Ouă, ciuperci, mix salată verde.', 'Eggs, mushrooms, green salad mix.'),
         price: 30,
         weight: '300g',
-        allergens: '3'
+        allergens: '3',
+        nutrition:
+          'Informatii Nutritionale 100gr - Valoare energetica: 177.81kcal/177.81kJ, Grasimi: 14.13gr, din care: Acizi grasi saturati: 3.51gr, Glucide: 1.21gr, din care: Zaharuri: 0.19gr, Proteine: 11.75gr, Sare: 0.590 | Informatii Nutritionale 212.00gr - Valoare energetica: 376.95kcal/1575.651kJ, Grasimi: 29.95gr, din care: Acizi grasi saturati: 7.44gr, Glucide: 2.57gr, din care: Zaharuri: 0.41gr, Proteine: 24.91gr, Sare: 1.25gr'
       },
       {
         name: p('Omletă Gurmandu', 'Gurmandu omelette'),

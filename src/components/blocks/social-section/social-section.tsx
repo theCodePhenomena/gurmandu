@@ -1,6 +1,7 @@
 import { FacebookIcon, InstagramIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { SOCIAL_LINKS } from '@/consts'
 import { ui, type Locale } from '@/i18n/ui'
 
 const TikTokIcon = ({ className }: { className?: string }) => (
@@ -9,11 +10,10 @@ const TikTokIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-// TODO: replace `#` placeholders with the real Instagram, Facebook and TikTok URLs once provided.
 const links = [
-  { label: 'Instagram', href: '#', Icon: InstagramIcon },
-  { label: 'Facebook', href: '#', Icon: FacebookIcon },
-  { label: 'TikTok', href: '#', Icon: TikTokIcon }
+  { label: 'Instagram', href: SOCIAL_LINKS.instagram, Icon: InstagramIcon },
+  { label: 'Facebook', href: SOCIAL_LINKS.facebook, Icon: FacebookIcon },
+  { label: 'TikTok', href: SOCIAL_LINKS.tiktok, Icon: TikTokIcon }
 ]
 
 const SocialSection = ({ lang = 'ro' }: { lang?: Locale }) => {

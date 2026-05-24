@@ -6,7 +6,7 @@ import mdx from '@astrojs/mdx'
 import react from '@astrojs/react'
 
 export default defineConfig({
-  site: 'http://localhost:4321/',
+  site: 'https://gurmandu-bucuresti.ro/',
   integrations: [
     react(),
     mdx(),

@@ -1,5 +1,3 @@
-import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { ui, type Locale } from '@/i18n/ui'
 
 type DeliveryOption = {
@@ -11,8 +9,12 @@ type DeliveryOption = {
   color: string
 }[]
 
+const TAKEAWAY_PHONE = '+40730376165'
+const TAKEAWAY_LABEL = { ro: 'Comenzi cu ridicare:', en: 'Pickup orders:' } as const
+
 const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: DeliveryOption; lang?: Locale }) => {
   const t = (key: keyof typeof ui.ro) => ui[lang][key]
+  const providers = deliveryOptions.filter(o => o.name !== 'Take Away')
 
   return (
     <section
@@ -25,39 +27,42 @@ const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: De
           <p className='text-muted-foreground text-xl'>{t('delivery.subtitle')}</p>
         </div>
 
-        {/* Delivery Options Grid */}
-        <div className='grid gap-6 md:grid-cols-2 lg:grid-cols-4'>
-          {deliveryOptions.map(option => (
-            <Card
+        <div className='flex flex-nowrap items-center justify-center gap-4 sm:gap-8'>
+          {providers.map(option => (
+            <a
               key={option.id}
-              className='hover:border-primary flex flex-col overflow-hidden rounded-2xl shadow-sm transition-all duration-300 hover:shadow-md'
+              href={option.link}
+              target='_blank'
+              rel='noopener noreferrer'
+              aria-label={option.name}
+              className='group focus-visible:ring-primary rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
             >
-              <CardContent className='flex flex-col justify-between p-6'>
-                <div className='mb-4'>
-                  <div className='mb-4 inline-flex items-center justify-center rounded-lg p-3'>
-                    <img src={option.logo} alt={option.name} className='h-16 w-16 object-contain' />
-                  </div>
-                  <h3 className='text-xl font-semibold'>{option.name}</h3>
-                  <p className='text-muted-foreground mt-2 text-sm'>{option.description}</p>
-                </div>
-
-                <Button
-                  asChild
-                  className='w-full rounded-lg'
-                  variant={option.name === 'Take Away' ? 'default' : 'outline'}
-                >
-                  <a
-                    href={option.link}
-                    target={option.name !== 'Take Away' ? '_blank' : '_self'}
-                    rel='noopener noreferrer'
-                  >
-                    {option.name === 'Take Away' ? t('delivery.cta.call') : t('delivery.cta.order')}
-                  </a>
-                </Button>
-              </CardContent>
-            </Card>
+              <div
+                className='bg-background ring-border/60 group-hover:ring-primary flex shrink-0 items-center justify-center overflow-hidden rounded-2xl shadow-md ring-1 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl'
+                style={{ width: 96, height: 96 }}
+              >
+                <img
+                  src={option.logo}
+                  alt={option.name}
+                  width={96}
+                  height={96}
+                  style={{ width: 96, height: 96 }}
+                  className='block rounded-2xl object-cover transition-transform duration-300 group-hover:scale-105'
+                />
+              </div>
+            </a>
           ))}
         </div>
+
+        <p className='text-muted-foreground mt-10 text-center text-base'>
+          {TAKEAWAY_LABEL[lang]}{' '}
+          <a
+            href={`tel:${TAKEAWAY_PHONE}`}
+            className='text-primary font-semibold underline underline-offset-4 hover:opacity-80'
+          >
+            {TAKEAWAY_PHONE}
+          </a>
+        </p>
       </div>
     </section>
   )

@@ -5,10 +5,7 @@ export const SITE_TITLE = 'GurMANDU — Fusion Restaurant'
 export const SITE_DESCRIPTION =
   'Bucătărie fusion: rețete românești, mediteraneene și italiene reinventate într-un cadru modern. Ingrediente proaspete, preparate cu pasiune.'
 
-// TODO: replace with the real GitHub repo URL once published.
-export const GITHUB_URL = 'https://github.com/theCodePhenomena/gurmandu'
-// TODO: replace with the production domain once live.
-export const SITE_URL = 'https://gurmandu.ro/'
+export const SITE_URL = 'https://gurmandu-bucuresti.ro/'
 
 export const SITE_METADATA = {
   title: {
@@ -64,7 +61,6 @@ export const SITE_METADATA = {
   },
   twitter: {
     card: 'summary_large_image',
-    // TODO: replace with the real handles when the client provides them.
     site: '@gurmandu',
     creator: '@gurmandu',
     title: 'GurMANDU — Fusion Restaurant',
@@ -78,12 +74,16 @@ export const SITE_METADATA = {
   }
 }
 
-// TODO: fill in real social profile URLs once the client provides them.
 export const SOCIAL_LINKS = {
-  facebook: '#',
-  instagram: '#',
-  twitter: '#',
-  youtube: '#'
+  facebook: 'https://www.facebook.com/profile.php?id=61572017660461',
+  instagram: 'https://www.instagram.com/gurmandu25/',
+  tiktok: 'https://www.tiktok.com/@gurmandu25'
+}
+
+export const ANPC_LINKS = {
+  anpc: 'https://anpc.ro/',
+  sal: 'https://anpc.ro/ce-este-sal/',
+  sol: 'https://ec.europa.eu/consumers/odr/'
 }
 
 export const COMPANY_INFO = {
@@ -91,19 +91,18 @@ export const COMPANY_INFO = {
   legalName: 'GurMANDU',
   url: SITE_URL,
   logo: '/images/gurmandu-logo.png',
-  foundingDate: '2024',
-  // TODO: replace with the restaurant's real address, phone and email.
+  foundingDate: '2026',
   address: {
-    streetAddress: '',
+    streetAddress: 'Bulevardul Decebal 20',
     addressLocality: 'București',
-    addressRegion: '',
-    postalCode: '',
+    addressRegion: 'București',
+    postalCode: '030969',
     addressCountry: 'RO'
   },
   contactPoint: {
-    telephone: '',
-    contactType: 'reservations',
-    email: ''
+    telephone: '+40730376165',
+    contactType: 'customer service',
+    email: 'gurmandu2026@gmail.com'
   },
   sameAs: Object.values(SOCIAL_LINKS)
 }

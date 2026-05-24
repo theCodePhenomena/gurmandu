@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState, type TouchEvent } from 'react'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { cn, plateAnchor } from '@/lib/utils'
 import type { Plate, PlateCategory } from '@/assets/data/menu'
 import { siteLang, siteCurrency } from '@/assets/data/menu'
 import type { Locale } from '@/i18n/ui'
@@ -200,6 +200,29 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
     []
   )
 
+  useEffect(() => {
+    const openFromHash = () => {
+      const hash = window.location.hash.replace(/^#/, '')
+
+      if (!hash.startsWith('plate-')) return
+      const target = hash.slice('plate-'.length)
+
+      for (const cat of plateCategories) {
+        const plate = cat.plates.find(p => plateAnchor(p.name.ro) === `plate-${target}`)
+
+        if (plate) {
+          setSelectedItem({ plate, category: cat })
+          break
+        }
+      }
+    }
+
+    openFromHash()
+    window.addEventListener('hashchange', openFromHash)
+
+    return () => window.removeEventListener('hashchange', openFromHash)
+  }, [plateCategories])
+
   const handleSelectItem = (plate: Plate, category: PlateCategory) => {
     setSelectedItem({ plate, category })
     setDragOffset(0)
@@ -303,17 +326,18 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
               </div>
 
               <dl className='mx-auto flex max-w-4xl flex-col divide-y'>
-                {cat.plates.map(item => {
+                {cat.plates.map((item, idx) => {
                   const hasImage = Boolean(item.image)
                   const priceLabel = formatter.format(item.price)
 
                   return (
                     <button
                       type='button'
-                      key={item.name.ro}
+                      key={`${item.name.ro}-${item.weight ?? ''}-${idx}`}
+                      id={plateAnchor(item.name.ro)}
                       onClick={() => handleSelectItem(item, cat)}
                       className={cn(
-                        'group flex w-full items-stretch justify-between gap-4 py-6 text-left transition',
+                        'group flex w-full scroll-mt-40 items-stretch justify-between gap-4 py-6 text-left transition',
                         !hasImage && 'items-center'
                       )}
                     >
@@ -359,6 +383,17 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
               </dl>
             </div>
           ))}
+        </div>
+
+        <div className='mt-12 flex justify-center px-4 text-center sm:px-6 lg:px-8'>
+          <a
+            href='/files/valori-nutritionale.docx'
+            target='_blank'
+            rel='noopener noreferrer'
+            className='text-muted-foreground hover:text-primary text-sm underline underline-offset-4 transition-colors'
+          >
+            {t('menu.nutrition.link')}
+          </a>
         </div>
       </div>
 

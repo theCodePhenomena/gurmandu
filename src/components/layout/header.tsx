@@ -6,7 +6,7 @@ import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
 
-import MenuDropdown from '@/components/blocks/menu-dropdown'
+import MobileMenu from '@/components/blocks/mobile-menu'
 import MenuNavigation from '@/components/blocks/menu-navigation'
 import type { NavigationSection } from '@/components/blocks/menu-navigation'
 import type { LocalizedNavItem } from '@/assets/data/header'
@@ -64,9 +64,17 @@ type HeaderProps = {
 const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
 
+  const prefix = lang === 'ro' ? '' : `/${lang}`
+  const localizeHref = (href: string) => {
+    if (!href || href.startsWith('#') || href.startsWith('http')) return href
+    if (href === '/') return prefix || '/'
+    if (href.startsWith('/#')) return `${prefix}${href}`
+    return `${prefix}${href}`
+  }
+
   const localizedNav: NavigationSection[] = navigationData.map(item => ({
     title: item.title[lang],
-    href: item.href
+    href: localizeHref(item.href)
   }))
 
   // Extract section IDs from navigation data - only include valid sections
@@ -140,8 +148,7 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
             })}
           </div>
           {/* Mobile menu button */}
-          <MenuDropdown
-            align='end'
+          <MobileMenu
             navigationData={localizedNav}
             activeSection={activeSection}
             trigger={

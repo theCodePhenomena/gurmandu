@@ -7,24 +7,24 @@ export const ui = {
     // Menu section
     'menu.badge': 'Meniu',
     'menu.title': 'Meniul nostru',
-    'menu.subtitle':
-      'Bucătărie fără frontiere: tradiție românească, rafinament mediteranean, pasiune italiană.',
+    'menu.subtitle': 'Bucătărie fără frontiere: tradiție românească, rafinament mediteranean, pasiune italiană.',
     'menu.allergens': 'Alergeni',
     'menu.modal.close': 'Închide',
     'menu.modal.weight': 'Gramaj',
     'menu.modal.price': 'Preț',
     'menu.modal.allergens': 'Alergeni',
+    'menu.nutrition.link': 'Vezi valorile nutriționale complete',
 
     // Hero
     'hero.title': 'Ești gurmand? Ai ajuns acasă.',
     'hero.subtitle':
-      'O bucătărie fără frontiere — tradiție românească, rafinament mediteranean, pasiune italiană. Preparate gătite la comandă, din ingrediente proaspete, servite cu grijă pentru fiecare detaliu.',
-    'hero.cta.menu': 'Explorează meniul',
+      'O bucătărie fără frontiere — tradiție românească, rafinament mediteranean, pasiune italiană. Ingrediente proaspete, rețete asumate și o atenție reală pentru fiecare farfurie.',
+    'hero.cta.menu': 'Vezi meniul',
     'hero.cta.book': 'Rezervă o masă',
 
     // Featured / Popular
     'featured.badge': 'Vedetele noastre',
-    'featured.title': 'Preparatele despre care nu poți tăcea',
+    'featured.title': 'Preparate cărora nu le poți rezista',
     'featured.subtitle':
       'Există feluri de mâncare pe care le încerci o dată și le comanzi de fiecare dată după aceea. Acestea sunt mândria bucătăriei noastre — preparate cu caracter, concepute pentru cei care apreciază cu adevărat o masă bună.',
 
@@ -48,7 +48,7 @@ export const ui = {
     'about.badge': 'Despre noi',
     'about.title': 'Povestea din spatele numelui',
     'about.text':
-      'Gurmand — cel căruia îi place să mănânce bine și știe să aprecieze o masă cu adevărat îngrijită. Am pornit de la acest cuvânt și am construit în jurul lui un întreg univers culinar. La GurMANDU, nu există o singură bucătărie și nici o singură influență. Există, în schimb, o filozofie simplă: ingrediente proaspete, preparate gătite la comandă și convingerea că mâncarea cu adevărat bună nu ar trebui să fie un lux. Românesc, mediteranean, italian, fusion — meniul nostru este o călătorie. Tu alegi destinația.',
+      'Gurmand — cel căruia îi place să mănânce bine și știe să aprecieze o masă cu adevărat îngrijită. Am pornit de la acest cuvânt și am construit în jurul lui un întreg univers culinar. La GurMANDU, nu există o singură bucătărie și nici o singură influență. Există, în schimb, o filozofie simplă: ingrediente proaspete, preparate făcute cu grijă și convingerea că mâncarea cu adevărat bună nu ar trebui să fie un lux. Românesc, mediteranean, italian, fusion — meniul nostru este o călătorie. Tu alegi destinația.',
     'about.cta': 'Vezi meniul',
 
     // Contact
@@ -62,24 +62,23 @@ export const ui = {
     // Footer
     'footer.tagline': 'GurMANDU® — Mâncare bună, preț bun, oameni buni.',
     'footer.cuisines': 'Fusion · Românesc · Mediteranean · Italian',
-    'footer.legal':
-      'Produsele conțin alergeni. Preparatele se gătesc la comandă. Timpul de servire poate varia în funcție de alegerea efectuată și de fluxul de clienți.',
+    'footer.legal': 'Gătim totul proaspăt, din ingrediente alese cu grijă, în bucătăria noastră deschisă.',
     'footer.rights': 'Toate drepturile rezervate.'
   },
   en: {
     'menu.badge': 'Menu',
     'menu.title': 'Our menu',
-    'menu.subtitle':
-      'A kitchen without borders: Romanian tradition, Mediterranean refinement, Italian passion.',
+    'menu.subtitle': 'A kitchen without borders: Romanian tradition, Mediterranean refinement, Italian passion.',
     'menu.allergens': 'Allergens',
     'menu.modal.close': 'Close',
     'menu.modal.weight': 'Serving size',
     'menu.modal.price': 'Price',
     'menu.modal.allergens': 'Allergens',
+    'menu.nutrition.link': 'See full nutritional information',
 
     'hero.title': "A foodie at heart? You're in the right place.",
     'hero.subtitle':
-      'A kitchen without borders — Romanian tradition, Mediterranean refinement, Italian passion. Every dish made to order, from fresh ingredients, with care for every last detail.',
+      'A kitchen without borders — Romanian tradition, Mediterranean refinement, Italian passion. Fresh ingredients, confident recipes and real attention to every plate.',
     'hero.cta.menu': 'Explore the menu',
     'hero.cta.book': 'Reserve a table',
 
@@ -98,7 +97,8 @@ export const ui = {
     'delivery.title': 'The GurMANDU kitchen comes to you',
     'delivery.subtitle':
       "You don't need to leave home to enjoy a truly good meal. Our menu reaches you quickly, warm and just as carefully prepared as it would be in the restaurant.",
-    'delivery.takeaway': "Prefer to pick up your order in person? Give us a call and we'll have it ready when you arrive.",
+    'delivery.takeaway':
+      "Prefer to pick up your order in person? Give us a call and we'll have it ready when you arrive.",
     'delivery.cta.order': 'Order now',
     'delivery.cta.call': 'Call us',
 
@@ -117,8 +117,7 @@ export const ui = {
 
     'footer.tagline': 'GurMANDU® — Great food, honest prices, good people.',
     'footer.cuisines': 'Fusion · Romanian · Mediterranean · Italian',
-    'footer.legal':
-      'Products may contain allergens. All dishes are prepared to order. Service times may vary depending on your selection and restaurant flow.',
+    'footer.legal': 'Everything is cooked fresh, from carefully chosen ingredients, in our open kitchen.',
     'footer.rights': 'All rights reserved.'
   }
 } as const satisfies Record<Locale, Record<string, string>>

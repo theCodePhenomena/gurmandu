@@ -70,8 +70,13 @@ const MenuDropdown = ({ trigger, navigationData, activeSection, align = 'start' 
                 <a
                   href={navItem.href}
                   onClick={e => {
+                    const hashIdx = navItem.href.indexOf('#')
+                    if (hashIdx < 0) return
+                    const path = navItem.href.slice(0, hashIdx)
+                    const onSamePath = !path || path === window.location.pathname
+                    if (!onSamePath) return
                     e.preventDefault()
-                    scrollToSection(sectionId)
+                    scrollToSection(navItem.href.slice(hashIdx + 1))
                   }}
                   className={cn(
                     'transition-colors duration-200',

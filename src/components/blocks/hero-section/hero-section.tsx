@@ -115,8 +115,8 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
             loop: true
           }}
         >
-          <div className='from-background pointer-events-none absolute inset-y-0 left-0 z-1 w-25 bg-gradient-to-r via-85% to-transparent' />
-          <div className='from-background pointer-events-none absolute inset-y-0 right-0 z-1 w-25 bg-gradient-to-l via-85% to-transparent' />
+          <div className='from-background pointer-events-none absolute inset-y-0 -left-px z-1 w-25 bg-gradient-to-r via-85% to-transparent' />
+          <div className='from-background pointer-events-none absolute inset-y-0 -right-px z-1 w-25 bg-gradient-to-l via-85% to-transparent' />
           <CarouselContent className='my-1 flex'>
             {menudata.map((item, index) => (
               <CarouselItem

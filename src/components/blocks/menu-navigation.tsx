@@ -66,8 +66,13 @@ const MenuNavigation = ({ navigationData, activeSection, className }: MenuNaviga
                 <NavigationMenuLink
                   href={navItem.href}
                   onClick={e => {
+                    const hashIdx = navItem.href.indexOf('#')
+                    if (hashIdx < 0) return
+                    const path = navItem.href.slice(0, hashIdx)
+                    const onSamePath = !path || path === window.location.pathname
+                    if (!onSamePath) return
                     e.preventDefault()
-                    scrollToSection(sectionId)
+                    scrollToSection(navItem.href.slice(hashIdx + 1))
                   }}
                   className={cn(
                     navigationMenuTriggerStyle(),

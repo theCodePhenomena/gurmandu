@@ -1,59 +1,24 @@
 {
-  "name": "Template Name - Template Slogan",
-  "short_name": "Template Name",
-  "description": "Build lightning-fast, SEO-optimized websites with Astro, shadcn/ui, and Tailwind CSS",
+  "name": "GurMANDU — Fusion Restaurant",
+  "short_name": "GurMANDU",
+  "description": "Bucătărie fusion: rețete românești, mediteraneene și italiene, reinventate într-un cadru modern. București, Bulevardul Decebal 20.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#000000",
+  "background_color": "#0b1f24",
+  "theme_color": "#5bb4c4",
   "orientation": "portrait-primary",
-  "categories": [
-    "productivity",
-    "business",
-    "development"
-  ],
+  "lang": "ro-RO",
+  "categories": ["food", "restaurant", "lifestyle"],
   "icons": [
-    {
-      "src": "/favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon/apple-touch-icon.png",
-      "sizes": "180x180",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon/favicon-32x32.png",
-      "sizes": "32x32",
-      "type": "image/png"
-    },
-    {
-      "src": "/favicon/favicon-16x16.png",
-      "sizes": "16x16",
-      "type": "image/png"
-    }
-  ],
-  "screenshots": [
-    {
-      "src": "/images/og-image.png",
-      "sizes": "1200x630",
-      "type": "image/png",
-      "form_factor": "wide"
-    }
+    { "src": "/favicon/android-chrome-192x192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/favicon/android-chrome-512x512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/favicon/apple-touch-icon.png", "sizes": "180x180", "type": "image/png" },
+    { "src": "/favicon/favicon-32x32.png", "sizes": "32x32", "type": "image/png" },
+    { "src": "/favicon/favicon-16x16.png", "sizes": "16x16", "type": "image/png" }
   ],
   "shortcuts": [
-    {
-      "name": "Home",
-      "short_name": "Home",
-      "description": "Go to homepage",
-      "url": "/"
-    }
+    { "name": "Meniu", "short_name": "Meniu", "description": "Vezi meniul GurMANDU", "url": "/#menu" },
+    { "name": "Contact", "short_name": "Contact", "description": "Contact GurMANDU", "url": "/#contact-us" }
   ]
 }
