@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
-import ThemeToggle from '@/components/layout/theme-toggle'
 import { MenuIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 
 import MenuDropdown from '@/components/blocks/menu-dropdown'
 import MenuNavigation from '@/components/blocks/menu-navigation'
@@ -14,8 +12,7 @@ import type { NavigationSection } from '@/components/blocks/menu-navigation'
 import type { LocalizedNavItem } from '@/assets/data/header'
 
 import { cn } from '@/lib/utils'
-import { ui, type Locale } from '@/i18n/ui'
-
+import { locales, type Locale } from '@/i18n/ui'
 
 // Inline active section hook
 const useActiveSection = (sectionIds: string[]) => {
@@ -66,7 +63,6 @@ type HeaderProps = {
 
 const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
   const [isScrolled, setIsScrolled] = useState(false)
-  const t = (key: keyof typeof ui.ro) => ui[lang][key]
 
   const localizedNav: NavigationSection[] = navigationData.map(item => ({
     title: item.title[lang],
@@ -106,7 +102,7 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
       <div className='mx-auto flex h-full max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8'>
         {/* Logo */}
         <a href='/#home' className='flex items-center'>
-          <img src='/images/gurmandu-logo.png' alt='GurMANDU' className='h-12 w-auto' />
+          <img src='/images/gurmandu-logo.png' alt='GurMANDU' className='h-16 w-auto' />
         </a>
 
         {/* Navigation */}
@@ -117,27 +113,32 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
         />
 
         {/* Actions */}
-        <div className='flex items-center'>
-          <ThemeToggle />
-          <Button
-            className='group relative ml-4 w-fit overflow-hidden rounded-full text-base before:absolute before:inset-0 before:rounded-[inherit] before:bg-[linear-gradient(45deg,transparent_25%,rgba(255,255,255,0.5)_50%,transparent_75%,transparent_100%)] before:bg-[length:250%_250%,100%_100%] before:bg-[position:200%_0,0_0] before:bg-no-repeat before:transition-[background-position_0s_ease] before:duration-1000 hover:before:bg-[position:-100%_0,0_0] has-[>svg]:px-6 max-sm:hidden dark:before:bg-[linear-gradient(45deg,transparent_25%,rgba(0,0,0,0.2)_50%,transparent_75%,transparent_100%)]'
-            asChild
+        <div className='flex items-center gap-2'>
+          <div
+            aria-label='Language'
+            className='bg-muted/60 flex items-center gap-0.5 rounded-full p-0.5 text-xs font-semibold'
           >
-            <a href='#contact-us'>{t('hero.cta.book')}</a>
-          </Button>
+            {locales.map(loc => {
+              const isCurrent = loc === lang
+              const href = loc === 'ro' ? '/' : `/${loc}/`
 
-          {/* Mobile contact button */}
-          <TooltipProvider>
-            <Tooltip>
-              <TooltipTrigger asChild>
-                <Button className='ml-4 rounded-full sm:hidden' asChild>
-                  <a href='#contact-us'>{t('hero.cta.book')}</a>
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>{t('hero.cta.book')}</TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-
+              return (
+                <a
+                  key={loc}
+                  href={href}
+                  aria-current={isCurrent ? 'page' : undefined}
+                  className={cn(
+                    'rounded-full px-2.5 py-1 tracking-wide uppercase transition select-none',
+                    isCurrent
+                      ? 'bg-background text-foreground shadow-sm'
+                      : 'text-muted-foreground hover:text-foreground'
+                  )}
+                >
+                  {loc}
+                </a>
+              )
+            })}
+          </div>
           {/* Mobile menu button */}
           <MenuDropdown
             align='end'

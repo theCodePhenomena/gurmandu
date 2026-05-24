@@ -1,6 +1,5 @@
 import { FacebookIcon, InstagramIcon } from 'lucide-react'
 
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { ui, type Locale } from '@/i18n/ui'
 
@@ -24,9 +23,6 @@ const SocialSection = ({ lang = 'ro' }: { lang?: Locale }) => {
     <section id='social' className='py-8 sm:py-16 lg:py-24'>
       <div className='mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8'>
         <div className='flex flex-col items-center gap-4'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            {t('social.badge')}
-          </Badge>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('social.title')}</h2>
           <p className='text-muted-foreground text-xl'>{t('social.subtitle')}</p>
         </div>

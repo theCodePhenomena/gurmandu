@@ -1,4 +1,3 @@
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 
 import { cn } from '@/lib/utils'
@@ -24,10 +23,6 @@ const Gallery = ({ galleryImage }: { galleryImage: GalleryImage }) => {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         {/* Header */}
         <div className='mb-12 space-y-4 text-center sm:mb-16 lg:mb-24'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            Offers
-          </Badge>
-
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>Explore our Offerings</h2>
 
           <p className='text-muted-foreground text-xl'>

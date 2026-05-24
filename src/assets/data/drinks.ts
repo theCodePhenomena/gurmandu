@@ -116,15 +116,13 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Borsec plată / minerală', 'Borsec still / sparkling'),
         description: p('', ''),
         price: 11,
-        weight: '330ml',
-        image: d('racoritoare/borsec')
+        weight: '330ml'
       },
       {
         name: p('Borsec plată / minerală', 'Borsec still / sparkling'),
         description: p('', ''),
         price: 18,
-        weight: '750ml',
-        image: d('racoritoare/borsec')
+        weight: '750ml'
       }
     ]
   },
@@ -171,15 +169,13 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Ursus Premium', 'Ursus Premium'),
         description: p('', ''),
         price: 39,
-        weight: '1000ml',
-        image: d('bere-draught/ursus-1000')
+        weight: '1000ml'
       },
       {
         name: p('Ursus Premium', 'Ursus Premium'),
         description: p('', ''),
         price: 16,
-        weight: '400ml',
-        image: d('bere-draught/ursus-400')
+        weight: '400ml'
       }
     ]
   },
@@ -196,38 +192,33 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Efes draught', 'Efes draught'),
         description: p('', ''),
         price: 25,
-        weight: '500ml',
-        image: d('bere-sticla/efes')
+        weight: '500ml'
       },
       {
         name: p('Heineken', 'Heineken'),
         description: p('', ''),
         price: 23,
-        weight: '400ml',
-        image: d('bere-sticla/heineken')
+        weight: '400ml'
       },
       { name: p('Madri', 'Madri'), description: p('', ''), price: 15, weight: '500ml' },
       {
         name: p('Carlsberg', 'Carlsberg'),
         description: p('', ''),
         price: 24,
-        weight: '500ml',
-        image: d('bere-sticla/carlsberg')
+        weight: '500ml'
       },
       { name: p('Tuborg', 'Tuborg'), description: p('', ''), price: 19, weight: '500ml' },
       {
         name: p('Corona', 'Corona'),
         description: p('', ''),
         price: 22,
-        weight: '355ml',
-        image: d('bere-sticla/corona')
+        weight: '355ml'
       },
       {
         name: p('Leffe Blonda', 'Leffe Blonde'),
         description: p('', ''),
         price: 25,
-        weight: '330ml',
-        image: d('bere-sticla/leffe')
+        weight: '330ml'
       }
     ]
   },
@@ -262,15 +253,13 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Sole Chardonnay (Recaș)', 'Sole Chardonnay (Recaș)'),
         description: p('', ''),
         price: 159,
-        weight: '750ml',
-        image: d('vin-alb/sole-chardonnay')
+        weight: '750ml'
       },
       {
         name: p('Mysterium (Jidvei)', 'Mysterium (Jidvei)'),
         description: p('', ''),
         price: 115,
-        weight: '750ml',
-        image: d('vin-alb/mysterium')
+        weight: '750ml'
       },
       { name: p('Purcari Pinot Grigio', 'Purcari Pinot Grigio'), description: p('', ''), price: 85, weight: '750ml' },
       {
@@ -294,8 +283,7 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Purcari Nocturn', 'Purcari Nocturn'),
         description: p('', ''),
         price: 130,
-        weight: '750ml',
-        image: d('vin-rose/purcari-nocturn')
+        weight: '750ml'
       }
     ]
   },
@@ -352,29 +340,25 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Soligo Treviso Extra Dry', 'Soligo Treviso Extra Dry'),
         description: p('', ''),
         price: 90,
-        weight: '750ml',
-        image: d('prosecco-champagne/soligo')
+        weight: '750ml'
       },
       {
         name: p('Asti Martini', 'Asti Martini'),
         description: p('', ''),
         price: 149,
-        weight: '750ml',
-        image: d('prosecco-champagne/asti')
+        weight: '750ml'
       },
       {
         name: p('Franciacorta Brut', 'Franciacorta Brut'),
         description: p('', ''),
         price: 250,
-        weight: '750ml',
-        image: d('prosecco-champagne/franciacorta')
+        weight: '750ml'
       },
       {
         name: p('Moet Chandon Imperial', 'Moët & Chandon Impérial'),
         description: p('', ''),
         price: 470,
-        weight: '750ml',
-        image: d('prosecco-champagne/moet')
+        weight: '750ml'
       },
       { name: p('Prosecco la pahar', 'Prosecco by glass'), description: p('', ''), price: 22, weight: '150ml' }
     ]
@@ -389,23 +373,20 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Chivas 12 y.o.', 'Chivas 12 y.o.'),
         description: p('', ''),
         price: 32,
-        weight: '50ml',
-        image: d('whisky/chivas')
+        weight: '50ml'
       },
       { name: p('Jack Daniels', 'Jack Daniels'), description: p('', ''), price: 32, weight: '50ml' },
       {
         name: p('Jack Daniels Honey', 'Jack Daniels Honey'),
         description: p('', ''),
         price: 34,
-        weight: '50ml',
-        image: d('whisky/jd-honey')
+        weight: '50ml'
       },
       {
         name: p('Johnnie Walker Black Label', 'Johnnie Walker Black Label'),
         description: p('', ''),
         price: 34,
-        weight: '50ml',
-        image: d('whisky/jw-black')
+        weight: '50ml'
       },
       {
         name: p('Johnnie Walker Red Label', 'Johnnie Walker Red Label'),
@@ -427,8 +408,7 @@ export const drinkCategories: DrinkCategory[] = [
         name: p('Martell V.S.', 'Martell V.S.'),
         description: p('', ''),
         price: 49,
-        weight: '50ml',
-        image: d('cognac/martell')
+        weight: '50ml'
       },
       { name: p('Brancoveanu V.S.', 'Brâncoveanu V.S.'), description: p('', ''), price: 16, weight: '50ml' }
     ]
@@ -439,9 +419,9 @@ export const drinkCategories: DrinkCategory[] = [
     prettyName: p('Pălincă', 'Pălincă'),
     description: p('Pălincă tradițională.', 'Traditional Romanian fruit brandy.'),
     plates: [
-      { name: p('Prune', 'Plum'), description: p('', ''), price: 25, weight: '50ml', image: d('palinca/prune') },
+      { name: p('Prune', 'Plum'), description: p('', ''), price: 25, weight: '50ml' },
       { name: p('Pere', 'Pear'), description: p('', ''), price: 27, weight: '50ml' },
-      { name: p('Gutui', 'Quince'), description: p('', ''), price: 35, weight: '50ml', image: d('palinca/gutui') }
+      { name: p('Gutui', 'Quince'), description: p('', ''), price: 35, weight: '50ml' }
     ]
   },
   {

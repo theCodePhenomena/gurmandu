@@ -3,7 +3,6 @@ import type { ComponentType } from 'react'
 import { ArrowRightIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
 import { ui, type Locale } from '@/i18n/ui'
 
 type Stat = {
@@ -22,9 +21,6 @@ const AboutUs = ({ stats, lang = 'ro' }: { stats: Stat[]; lang?: Locale }) => {
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         {/* Header */}
         <div className='mx-auto mb-12 flex max-w-3xl flex-col items-center justify-center space-y-4 text-center md:mb-16 lg:mb-24'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            {t('about.badge')}
-          </Badge>
           <h2 className='text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl'>{t('about.title')}</h2>
           <p className='text-muted-foreground text-xl whitespace-pre-line'>{t('about.text')}</p>
           <Button

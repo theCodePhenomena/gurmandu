@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type TouchEvent } from 'react'
-import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import type { Plate, PlateCategory } from '@/assets/data/menu'
@@ -257,9 +256,6 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
     <section id='menu' className='py-8 sm:py-16 lg:py-24'>
       <div className='mx-auto max-w-7xl md:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
-          <Badge variant='outline' className='text-sm font-normal'>
-            {t('menu.badge')}
-          </Badge>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('menu.title')}</h2>
           <p className='text-muted-foreground text-xl'>{t('menu.subtitle')}</p>
         </div>
@@ -271,7 +267,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
             aria-hidden='true'
             className='from-background from-0 pointer-events-none absolute inset-x-0 top-full h-10 bg-linear-to-b to-transparent'
           />
-          <nav className='bg-primary text-primary-foreground relative mx-auto max-w-5xl sm:rounded-full'>
+          <nav className='bg-primary/5 text-muted-foreground relative mx-auto max-w-5xl shadow-sm sm:rounded-full'>
             <ul ref={navRef} className='no-scrollbar flex gap-8 overflow-x-auto px-2.5 py-3'>
               {plateCategories.map(cat => {
                 const isActive = activeSlug === cat.slug
@@ -286,7 +282,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                       onClick={() => handleClick(cat.slug)}
                       className={cn(
                         'rounded-full px-3 py-1 font-medium transition select-none',
-                        isActive ? 'text-black' : 'hover:bg-background/10'
+                        isActive ? 'text-primary' : ''
                       )}
                     >
                       {cat.prettyName[lang]}
@@ -348,7 +344,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                         </dd>
                       </div>
                       {hasImage && (
-                        <div className='bg-muted shrink-0 overflow-hidden rounded-xl'>
+                        <div className='bg-muted shrink-0 overflow-hidden rounded-xl shadow-lg group-hover:shadow-xl'>
                           <img
                             src={item.image}
                             alt={item.name[lang]}

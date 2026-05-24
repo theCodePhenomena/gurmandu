@@ -87,13 +87,6 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
                   <ArrowRightIcon className='transition-transform duration-200 group-hover:translate-x-0.5' />
                 </a>
               </Button>
-              <Button
-                size='lg'
-                asChild
-                className='bg-primary/10 hover:bg-primary/20 text-primary rounded-full text-base'
-              >
-                <a href='#contact-us'>{t('hero.cta.book')}</a>
-              </Button>
             </div>
           </div>
 

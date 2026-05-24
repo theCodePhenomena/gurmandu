@@ -1,25 +1,32 @@
 import { Clock8Icon, MapPinIcon, Mail, PhoneIcon } from 'lucide-react'
+import type { Locale } from '@/i18n/ui'
+import type { ComponentType } from 'react'
 
-// TODO: replace placeholder address, phone, email and opening hours with the real values from the client.
-export const contactInfo = [
+export type ContactItem = {
+  title: Record<Locale, string>
+  icon: ComponentType
+  description: string
+}
+
+export const contactInfo: ContactItem[] = [
   {
-    title: 'Program',
+    title: { ro: 'Program', en: 'Hours' },
     icon: Clock8Icon,
     description: 'Zilnic\n12:00 — 23:00'
   },
   {
-    title: 'Adresă',
+    title: { ro: 'Adresă', en: 'Address' },
     icon: MapPinIcon,
-    description: 'București\n[adresa exactă]'
+    description: 'Bulevardul Decebal 20\n030969 București'
   },
   {
-    title: 'Email',
+    title: { ro: 'Email', en: 'Email' },
     icon: Mail,
-    description: 'contact@gurmandu.ro'
+    description: 'gurmandu2026@gmail.com'
   },
   {
-    title: 'Telefon',
+    title: { ro: 'Telefon', en: 'Phone' },
     icon: PhoneIcon,
-    description: '+40 [număr]'
+    description: '+40 730 376 165'
   }
 ]
