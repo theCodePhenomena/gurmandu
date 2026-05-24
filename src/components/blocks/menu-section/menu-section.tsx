@@ -407,7 +407,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
               </div>
               <div className='flex flex-1 flex-col gap-4 p-6 pb-12 md:pb-8'>
                 <div className='space-y-1'>
-                  <h3 className='text-2xl font-semibold sm:text-3xl'>{selectedItem.plate.name[lang]}</h3>
+                  <h3 className='max-w-[90%] text-2xl font-semibold sm:text-3xl'>{selectedItem.plate.name[lang]}</h3>
 
                   <div className='flex justify-between'>
                     <span className='text-primary text-xl font-semibold'>
@@ -416,6 +416,9 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                     <span className='text-muted-foreground font-normal'> {selectedItem.plate.weight}</span>
                   </div>
                   <p className='text-muted-foreground text-base sm:text-lg'>{selectedItem.plate.description[lang]}</p>
+                  {selectedItem.plate.nutrition && (
+                    <p className='text-muted-foreground/80 text-xs leading-relaxed'>{selectedItem.plate.nutrition}</p>
+                  )}
                 </div>
               </div>
             </div>
