@@ -38,6 +38,14 @@
     "tailwindcss": "^4.1.18",
     "typescript": "^5.9.3"
   },
+  "overrides": {
+    "vite": "^7.1.0"
+  },
+  "pnpm": {
+    "overrides": {
+      "vite": "^7.1.0"
+    }
+  },
   "devDependencies": {
     "@eslint/js": "^9.39.2",
     "@stylistic/eslint-plugin": "^5.6.1",
