@@ -320,7 +320,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
         {/* Category sections */}
         <div className='grid grid-cols-1 gap-y-16 px-4 sm:px-6 lg:px-0'>
           {plateCategories.map(cat => (
-            <div key={cat.slug} id={cat.slug} className='scroll-mt-40 space-y-8 divide-y'>
+            <div key={cat.slug} id={cat.slug} className='scroll-mt-52 space-y-8 divide-y md:scroll-mt-44'>
               <div className='mx-auto flex max-w-4xl flex-col items-start gap-2 py-6 text-center text-balance'>
                 <h3 className='text-primary/80 text-2xl font-semibold md:text-4xl'>{cat.prettyName[lang]}</h3>
               </div>

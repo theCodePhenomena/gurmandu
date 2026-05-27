@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 import { FacebookIcon, InstagramIcon, MapPinIcon, MenuIcon, PhoneIcon } from 'lucide-react'
 
@@ -22,45 +22,44 @@ const TikTokIcon = ({ className }: { className?: string }) => (
 import { cn } from '@/lib/utils'
 import { locales, type Locale } from '@/i18n/ui'
 
-// Inline active section hook
-const useActiveSection = (sectionIds: string[]) => {
-  const [activeSection, setActiveSection] = useState<string>('')
+const getHeaderOffset = () => (window.matchMedia('(min-width: 1024px)').matches ? 84 : 160)
+
+const useScrollSpy = (sectionIds: string[]) => {
+  const [active, setActive] = useState<string>('')
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      entries => {
-        const intersectingSections = entries.filter(entry => entry.isIntersecting)
+    if (sectionIds.length === 0) return
 
-        if (intersectingSections.length === 0) {
-          setActiveSection('')
-        } else {
-          const mostVisible = intersectingSections.reduce((prev, current) =>
-            current.intersectionRatio > prev.intersectionRatio ? current : prev
-          )
+    const calculateActiveSection = () => {
+      const offset = getHeaderOffset()
+      const scrollPosition = window.scrollY + offset + 1
+      let current = sectionIds[0]
 
-          setActiveSection(mostVisible.target.id)
+      sectionIds.forEach(id => {
+        const element = document.getElementById(id)
+        if (!element) return
+        if (scrollPosition >= element.offsetTop) {
+          current = id
         }
-      },
-      {
-        threshold: [0.1, 0.2, 0.3, 0.4, 0.5],
-        rootMargin: '-100px 0px -50% 0px'
-      }
-    )
+      })
 
-    sectionIds.forEach(id => {
-      const element = document.getElementById(id)
+      setActive(current)
+    }
 
-      if (element) {
-        observer.observe(element)
-      }
-    })
+    calculateActiveSection()
+    const onScroll = () => calculateActiveSection()
+    const onResize = () => calculateActiveSection()
+
+    window.addEventListener('scroll', onScroll, { passive: true })
+    window.addEventListener('resize', onResize)
 
     return () => {
-      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onResize)
     }
   }, [sectionIds])
 
-  return activeSection
+  return active
 }
 
 type HeaderProps = {
@@ -82,17 +81,30 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
     return `${prefix}${href}`
   }
 
-  const localizedNav: NavigationSection[] = navigationData.map(item => ({
-    title: item.title[lang],
-    href: localizeHref(item.href)
-  }))
+  const localizedNav: NavigationSection[] = useMemo(
+    () =>
+      navigationData.map(item => ({
+        title: item.title[lang],
+        href: localizeHref(item.href)
+      })),
+    [navigationData, lang]
+  )
 
-  // Extract section IDs from navigation data - only include valid sections
-  const sectionIds = localizedNav.map(item => item.href?.replace('#', '')).filter(Boolean) as string[]
+  const sectionIds = useMemo(
+    () =>
+      localizedNav
+        .map(item => {
+          if (!item.href) return undefined
+          if (item.href.startsWith('#')) return item.href.slice(1)
+          const hashIndex = item.href.indexOf('#')
+          if (hashIndex === -1) return undefined
+          return item.href.slice(hashIndex + 1)
+        })
+        .filter(Boolean) as string[],
+    [localizedNav]
+  )
 
-  // Only use active section if it's actually in our navigation list
-  const detectedActiveSection = useActiveSection(sectionIds)
-  const activeSection = sectionIds.includes(detectedActiveSection) ? detectedActiveSection : ''
+  const activeSection = useScrollSpy(sectionIds)
 
   useEffect(() => {
     const handleScroll = () => {
@@ -106,6 +118,13 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
       window.removeEventListener('scroll', handleScroll)
     }
   }, [])
+
+  useEffect(() => {
+    if (!activeSection) return
+    const hash = `#${activeSection}`
+    if (window.location.hash === hash) return
+    history.replaceState(null, '', hash)
+  }, [activeSection])
 
   const phoneHref = 'tel:+40730376165'
   const mapHref = 'https://www.google.com/maps/dir/?api=1&destination=Bulevardul+Decebal+20%2C+Bucure%C8%99ti'
