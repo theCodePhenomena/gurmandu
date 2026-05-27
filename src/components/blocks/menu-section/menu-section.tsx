@@ -373,7 +373,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                             src={item.image}
                             alt={item.name[lang]}
                             loading='lazy'
-                            className='h-24 w-full transition-transform duration-200 group-hover:scale-105 md:h-40'
+                            className='h-24 transition-transform duration-200 group-hover:scale-105 md:h-40'
                           />
                         </div>
                       )}
@@ -399,7 +399,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
 
       {selectedItem && (
         <div
-          className='bg-background/80 fixed inset-0 z-100 flex items-end justify-center backdrop-blur-sm md:items-center'
+          className='bg-background/80 fixed inset-0 z-[100] flex items-end justify-center backdrop-blur-sm md:items-center'
           role='dialog'
           aria-modal='true'
           onClick={() => closeModal()}

@@ -115,8 +115,8 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
             loop: true
           }}
         >
-          <div className='from-background pointer-events-none absolute inset-y-0 -left-px z-1 w-25 bg-gradient-to-r via-85% to-transparent' />
-          <div className='from-background pointer-events-none absolute inset-y-0 -right-px z-1 w-25 bg-gradient-to-l via-85% to-transparent' />
+          <div className='pointer-events-none absolute inset-y-0 -left-px z-[1] w-25 bg-[linear-gradient(to_right,rgb(var(--background))_0%,rgb(var(--background))_85%,transparent_100%)]' />
+          <div className='pointer-events-none absolute inset-y-0 -right-px z-[1] w-25 bg-[linear-gradient(to_left,rgb(var(--background))_0%,rgb(var(--background))_85%,transparent_100%)]' />
           <CarouselContent className='my-1 flex'>
             {menudata.map((item, index) => (
               <CarouselItem
@@ -125,7 +125,7 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
                 onClick={() => handleThumbClick(index)}
               >
                 <div className='relative flex h-33 items-center justify-center'>
-                  <div className={cn('absolute bottom-0 -z-1', current === index ? 'text-primary' : 'text-border')}>
+                  <div className={cn('absolute bottom-0 -z-[1]', current === index ? 'text-primary' : 'text-border')}>
                     <svg xmlns='http://www.w3.org/2000/svg' width='161' height='92' viewBox='0 0 161 92' fill='none'>
                       <path
                         d='M0.682517 80.6118L0.501193 39.6946C0.480127 34.9409 3.80852 30.8294 8.46241 29.8603L148.426 0.713985C154.636 -0.579105 160.465 4.16121 160.465 10.504V80.7397C160.465 86.2674 155.98 90.7465 150.453 90.7397L10.6701 90.5674C5.16936 90.5607 0.706893 86.1125 0.682517 80.6118Z'
@@ -133,7 +133,7 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
                       />
                     </svg>
                   </div>
-                  <img src={item.img} alt={item.imgAlt} className='aspect-12/9 h-5/6' loading='lazy' />
+                  <img src={item.img} alt={item.imgAlt} className='aspect-[12/9] h-5/6' loading='lazy' />
                 </div>
               </CarouselItem>
             ))}

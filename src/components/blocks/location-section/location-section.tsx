@@ -35,7 +35,7 @@ const LocationSection = ({ lang = 'ro' }: { lang?: Locale }) => {
                       <img
                         src={image.src}
                         alt={image.alt[lang]}
-                        className='aspect-3/2 w-full object-cover transition-transform duration-300 group-hover:scale-105'
+                        className='aspect-[3/2] w-full object-cover transition-transform duration-300 group-hover:scale-105'
                         loading='lazy'
                       />
                     </div>

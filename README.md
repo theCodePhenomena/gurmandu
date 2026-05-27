@@ -83,7 +83,7 @@ This project showcases a complete business website with sections for Header, Her
 - ⚡ **Optimized Performance** - Fast page loads and excellent SEO
 - 🔧 **TypeScript Support** - Type-safe configuration and development
 - 💅 **Prettier Integration** - Automatic code formatting with Tailwind class sorting
-- 🌙 **Tailwind CSS 4** - Latest Tailwind with modern features
+- 🌙 **Tailwind CSS 3** - Stable utility engine with broad compatibility
 
 ## 🏗️ Project Structure
 
@@ -171,6 +171,12 @@ shadcn-studio-astro-template/
    ```bash
    pnpm run preview
    ```
+
+## 🌐 Browser Compatibility
+
+- Tailwind CSS v3 powers the design system, following Tailwind core guidance for legacy platform support.
+- PostCSS runs `@csstools/postcss-oklab-function` to transform OKLCH/OKLAB colors into `rgb()` fallbacks while preserving the modern definitions.
+- For deeper legacy constraints (for example older Safari versions), keep an eye on the Tailwind GitHub discussions for community-tested strategies.
 
 ## 🧞 Available Commands
 
