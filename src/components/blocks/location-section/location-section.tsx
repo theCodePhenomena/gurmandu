@@ -16,7 +16,10 @@ const LocationSection = ({ lang = 'ro' }: { lang?: Locale }) => {
   const t = (key: keyof typeof ui.ro) => ui[lang][key]
 
   return (
-    <section id='location' className='bg-muted/40 scroll-mt-40 py-8 sm:py-16 lg:scroll-mt-16 lg:py-24'>
+    <section
+      id='location'
+      className='relative scroll-mt-40 py-8 before:absolute before:inset-0 before:-z-10 before:bg-muted/40 before:skew-y-3 sm:py-16 lg:scroll-mt-16 lg:py-24'
+    >
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='grid gap-10 lg:grid-cols-[1fr,1.1fr] lg:items-center'>
           <div className='mx-auto flex max-w-2xl flex-col items-center justify-center space-y-4 text-center'>

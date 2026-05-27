@@ -37,7 +37,9 @@ const useScrollSpy = (sectionIds: string[]) => {
 
       sectionIds.forEach(id => {
         const element = document.getElementById(id)
+
         if (!element) return
+
         if (scrollPosition >= element.offsetTop) {
           current = id
         }
@@ -97,7 +99,9 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
           if (!item.href) return undefined
           if (item.href.startsWith('#')) return item.href.slice(1)
           const hashIndex = item.href.indexOf('#')
+
           if (hashIndex === -1) return undefined
+
           return item.href.slice(hashIndex + 1)
         })
         .filter(Boolean) as string[],
@@ -122,6 +126,7 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
   useEffect(() => {
     if (!activeSection) return
     const hash = `#${activeSection}`
+
     if (window.location.hash === hash) return
     history.replaceState(null, '', hash)
   }, [activeSection])
@@ -192,8 +197,8 @@ const Header = ({ navigationData, className, lang = 'ro' }: HeaderProps) => {
 
         <div className='flex h-28 items-center justify-between gap-6'>
           {/* Logo */}
-          <a href='#home' className='flex items-center'>
-            <img src='/images/gurmandu-logo.png' alt='GurMANDU' className='h-24 w-auto' />
+          <a href='#home' className='-ml-4 flex items-center md:ml-0'>
+            <img src='/images/gurmandu-logo.png' alt='GurMANDU' className='h-28 w-auto' />
           </a>
 
           {/* Navigation */}
