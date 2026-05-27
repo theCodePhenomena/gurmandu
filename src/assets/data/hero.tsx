@@ -29,9 +29,9 @@ export const menudata = [
   },
   {
     id: 5,
-    img: '/images/hero-section/carousel/carbonara.webp',
-    imgAlt: 'Spaghete Carbonara',
-    userComment: 'Fresh ingredients, three cuisines, one modern table.',
+    img: '/images/hero-section/carousel/platou-creveti-black-tiger.webp',
+    imgAlt: 'Platou Creveți Black Tiger',
+    userComment: 'Black Tiger shrimp platter, seared in garlic butter and herbs.',
     userAvatar: '/images/hero-section/avatar-03.webp'
   }
 ]

@@ -20,7 +20,7 @@ const SocialSection = ({ lang = 'ro' }: { lang?: Locale }) => {
   const t = (key: keyof typeof ui.ro) => ui[lang][key]
 
   return (
-    <section id='social' className='py-8 sm:py-16 lg:py-24'>
+    <section id='social' className='scroll-mt-40 py-8 sm:py-16 lg:scroll-mt-16 lg:py-24'>
       <div className='mx-auto max-w-3xl px-4 text-center sm:px-6 lg:px-8'>
         <div className='flex flex-col items-center gap-4'>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('social.title')}</h2>

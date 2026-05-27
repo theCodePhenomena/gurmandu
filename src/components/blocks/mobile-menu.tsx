@@ -16,15 +16,6 @@ const TikTokIcon = ({ className }: { className?: string }) => (
   </svg>
 )
 
-const scrollToSection = (sectionId: string) => {
-  const element = document.getElementById(sectionId)
-  if (!element) return
-  const headerHeight = 80
-  const elementPosition = element.getBoundingClientRect().top
-  const offsetPosition = elementPosition + window.pageYOffset - headerHeight
-  window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
-}
-
 type Props = {
   trigger: ReactNode
   navigationData: NavigationSection[]
@@ -36,28 +27,23 @@ const MobileMenu = ({ trigger, navigationData, activeSection }: Props) => {
 
   useEffect(() => {
     if (!open) return
+
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') setOpen(false)
     }
+
     document.addEventListener('keydown', onKey)
     const prev = document.body.style.overflow
+
     document.body.style.overflow = 'hidden'
+
     return () => {
       document.removeEventListener('keydown', onKey)
       document.body.style.overflow = prev
     }
   }, [open])
 
-  const handleNavClick = (href: string) => (e: React.MouseEvent) => {
-    const hashIdx = href.indexOf('#')
-    if (hashIdx >= 0) {
-      const path = href.slice(0, hashIdx)
-      const onSamePath = !path || path === window.location.pathname
-      if (onSamePath) {
-        e.preventDefault()
-        scrollToSection(href.slice(hashIdx + 1))
-      }
-    }
+  const handleNavClick = () => {
     setOpen(false)
   }
 
@@ -95,7 +81,7 @@ const MobileMenu = ({ trigger, navigationData, activeSection }: Props) => {
         )}
       >
         <div className='flex items-center justify-between border-b px-5 py-4'>
-          <a href='/' className='flex items-center' onClick={() => setOpen(false)}>
+          <a href='#home' className='flex items-center' onClick={() => setOpen(false)}>
             <img src='/images/gurmandu-logo.png' alt='GurMANDU' className='h-10 w-auto' />
           </a>
           <Button variant='ghost' size='icon' className='rounded-full' onClick={() => setOpen(false)}>
@@ -115,7 +101,7 @@ const MobileMenu = ({ trigger, navigationData, activeSection }: Props) => {
                 <li key={item.title}>
                   <a
                     href={item.href}
-                    onClick={handleNavClick(item.href)}
+                    onClick={() => handleNavClick()}
                     className={cn(
                       'block rounded-lg px-4 py-3 text-lg font-medium transition-colors',
                       isActive ? 'bg-primary/10 text-primary' : 'text-foreground hover:bg-primary/5 hover:text-primary'

@@ -16,9 +16,9 @@ export const ui = {
     'menu.nutrition.link': 'Vezi valorile nutriționale complete',
 
     // Hero
-    'hero.title': 'Ești gurmand? Ai ajuns acasă.',
+    'hero.title': 'Ești gurmand? Ai ajuns unde trebuie.',
     'hero.subtitle':
-      'O bucătărie fără frontiere — tradiție românească, rafinament mediteranean, pasiune italiană. Ingrediente proaspete, rețete asumate și o atenție reală pentru fiecare farfurie.',
+      'Bucătărie românească autentică, rafinament mediteranean, pasiune italiană și influențe asiatice reinterpretate modern. De la burgeri suculenți și crispy crocant, până la deserturi originale create cu atenție pentru fiecare detaliu — aici fiecare preparat are personalitate.',
     'hero.cta.menu': 'Vezi meniul',
     'hero.cta.book': 'Rezervă o masă',
 
@@ -35,12 +35,16 @@ export const ui = {
       'Urmărește-ne pe rețelele sociale pentru a fi primul care află noutățile din meniu, ofertele speciale și evenimentele noastre.',
     'social.hashtag': 'Etichetează-ne în postările tale cu #GurMANDU și s-ar putea să te regăsești pe pagina noastră.',
 
+    // Location
+    'location.title': 'Te așteptăm în locația noastră de pe Decebal 20',
+
     // Delivery
     'delivery.badge': 'Delivery & Take Away',
     'delivery.title': 'Bucătăria GurMANDU vine la tine',
     'delivery.subtitle':
       'Nu trebuie să ieși din casă pentru a te bucura de un preparat bun. Meniul nostru ajunge la tine rapid, cald și la fel de îngrijit ca în restaurant.',
     'delivery.takeaway': 'Preferați să ridicați comanda personal? Sunați-ne și vă pregătim totul din timp.',
+    'delivery.hours.delivery': 'Program livrări: 10:00 — 23:30',
     'delivery.cta.order': 'Comandă acum',
     'delivery.cta.call': 'Sună-ne',
 
@@ -76,9 +80,9 @@ export const ui = {
     'menu.modal.allergens': 'Allergens',
     'menu.nutrition.link': 'See full nutritional information',
 
-    'hero.title': "A foodie at heart? You're in the right place.",
+    'hero.title': "Foodie? You've come to the right place.",
     'hero.subtitle':
-      'A kitchen without borders — Romanian tradition, Mediterranean refinement, Italian passion. Fresh ingredients, confident recipes and real attention to every plate.',
+      'Authentic Romanian cuisine, Mediterranean refinement, Italian passion and modern Asian influences. From succulent burgers and crispy bites to original desserts crafted with care for every detail — every dish here has its own personality.',
     'hero.cta.menu': 'Explore the menu',
     'hero.cta.book': 'Reserve a table',
 
@@ -93,12 +97,16 @@ export const ui = {
       'Follow us on social media to be the first to hear about new additions to the menu, special offers and upcoming events.',
     'social.hashtag': 'Tag us in your posts with #GurMANDU — you might just end up on our page.',
 
+    // Location
+    'location.title': 'Visit our location on Decebal 20',
+
     'delivery.badge': 'Delivery & Take Away',
     'delivery.title': 'The GurMANDU kitchen comes to you',
     'delivery.subtitle':
       "You don't need to leave home to enjoy a truly good meal. Our menu reaches you quickly, warm and just as carefully prepared as it would be in the restaurant.",
     'delivery.takeaway':
       "Prefer to pick up your order in person? Give us a call and we'll have it ready when you arrive.",
+    'delivery.hours.delivery': 'Delivery hours: 10:00 — 23:30',
     'delivery.cta.order': 'Order now',
     'delivery.cta.call': 'Call us',
 

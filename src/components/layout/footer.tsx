@@ -17,7 +17,7 @@ const Footer = ({ lang = 'ro' }: { lang?: Locale }) => {
 
         <p className='text-muted-foreground mt-2 text-xs'>
           {`© ${new Date().getFullYear()} `}
-          <a href='/#home' className='hover:underline'>
+          <a href='#home' className='hover:underline'>
             GurMANDU®
           </a>
           . {t('footer.rights')}

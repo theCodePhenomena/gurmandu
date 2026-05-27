@@ -2,6 +2,7 @@
 import Layout from '@/layouts/Layout.astro'
 import HeroSectionPage from '@/components/blocks/hero-section/hero-section'
 import PopularDishes from '@/components/blocks/popular-dishes/popular-dishes'
+import LocationSection from '@/components/blocks/location-section/location-section'
 import MenuSection from '@/components/blocks/menu-section/menu-section'
 import DeliverySection from '@/components/blocks/delivery-section/delivery-section'
 import ContactUs from '@/components/blocks/contact-us-section/contact-us-page'
@@ -17,9 +18,9 @@ import { getLangFromUrl } from '@/i18n/utils'
 
 const lang = getLangFromUrl(Astro.url)
 
-const pageTitle = ''
+const pageTitle = 'Ești gurmand? Ai ajuns unde trebuie.'
 const pageDescription =
-  'Bucătărie fusion: rețete românești, mediteraneene și italiene, reinventate într-un cadru modern. Ingrediente proaspete, preparate cu pasiune.'
+  'Bucătărie românească autentică, rafinament mediteranean, pasiune italiană și influențe asiatice reinterpretate modern. De la burgeri suculenți și crispy crocant, până la deserturi originale create cu atenție pentru fiecare detaliu — aici fiecare preparat are personalitate.'
 const pageKeywords = 'restaurant, fusion, bucătărie românească, mediteraneană, italiană, modern, GurMANDU, București'
 
 const schema = {
@@ -44,6 +45,7 @@ const schema = {
 <Layout title={pageTitle} description={pageDescription} keywords={pageKeywords} schema={schema}>
   <HeroSectionPage menudata={menudata} lang={lang} client:load />
   <PopularDishes popularDishes={popularDishes} lang={lang} client:load />
+  <LocationSection lang={lang} client:load />
   <MenuSection plateCategories={[...plateCategories, ...drinkCategories]} lang={lang} client:load />
   <DeliverySection deliveryOptions={deliveryOptions} lang={lang} client:load />
   <SocialSection lang={lang} client:load />

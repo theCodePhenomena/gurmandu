@@ -1,15 +1,15 @@
 // Site Configuration
 // Centralized configuration for site metadata, SEO, and branding
 
-export const SITE_TITLE = 'GurMANDU — Fusion Restaurant'
+export const SITE_TITLE = "GurMANDU — Foodie? You've come to the right place."
 export const SITE_DESCRIPTION =
-  'Bucătărie fusion: rețete românești, mediteraneene și italiene reinventate într-un cadru modern. Ingrediente proaspete, preparate cu pasiune.'
+  'Authentic Romanian cuisine, Mediterranean refinement, Italian passion and modern Asian influences. From succulent burgers and crispy bites to original desserts crafted with care for every detail — every dish here has its own personality.'
 
 export const SITE_URL = 'https://gurmandu-bucuresti.ro/'
 
 export const SITE_METADATA = {
   title: {
-    default: 'GurMANDU — Fusion Restaurant'
+    default: "GurMANDU — Foodie? You've come to the right place."
   },
   description: SITE_DESCRIPTION,
   keywords: [
@@ -47,7 +47,7 @@ export const SITE_METADATA = {
     type: 'website',
     locale: 'ro_RO',
     siteName: 'GurMANDU',
-    title: 'GurMANDU — Fusion Restaurant',
+    title: "GurMANDU — Foodie? You've come to the right place.",
     description: SITE_DESCRIPTION,
     images: [
       {
@@ -63,7 +63,7 @@ export const SITE_METADATA = {
     card: 'summary_large_image',
     site: '@gurmandu',
     creator: '@gurmandu',
-    title: 'GurMANDU — Fusion Restaurant',
+    title: "GurMANDU — Foodie? You've come to the right place.",
     description: SITE_DESCRIPTION,
     images: ['/images/gurmandu-logo.png']
   },

@@ -276,7 +276,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
     : undefined
 
   return (
-    <section id='menu' className='py-8 sm:py-16 lg:py-24'>
+    <section id='menu' className='scroll-mt-40 py-8 sm:py-16 lg:scroll-mt-16 lg:py-24'>
       <div className='mx-auto max-w-7xl md:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('menu.title')}</h2>
@@ -284,7 +284,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
         </div>
 
         {/* Sticky category nav */}
-        <div className='sticky top-16 z-40 mb-20 md:top-20'>
+        <div className='sticky top-40 z-40 mb-20 md:top-32'>
           <div aria-hidden='true' className='bg-background pointer-events-none absolute inset-x-0 -top-20 bottom-0' />
           <div
             aria-hidden='true'
@@ -373,7 +373,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
                             src={item.image}
                             alt={item.name[lang]}
                             loading='lazy'
-                            className='max-h-24 w-full transition-transform duration-200 group-hover:scale-105 md:max-h-40'
+                            className='h-24 w-full transition-transform duration-200 group-hover:scale-105 md:h-40'
                           />
                         </div>
                       )}
@@ -387,7 +387,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
 
         <div className='mt-12 flex justify-center px-4 text-center sm:px-6 lg:px-8'>
           <a
-            href='/files/valori-nutritionale.docx'
+            href='/files/valori-nutritionale.pdf'
             target='_blank'
             rel='noopener noreferrer'
             className='text-muted-foreground hover:text-primary text-sm underline underline-offset-4 transition-colors'

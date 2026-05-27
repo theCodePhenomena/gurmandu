@@ -15,19 +15,6 @@ import {
 
 import { cn } from '@/lib/utils'
 
-// Inline scroll function
-const scrollToSection = (sectionId: string) => {
-  const element = document.getElementById(sectionId)
-
-  if (element) {
-    const headerHeight = 80
-    const elementPosition = element.getBoundingClientRect().top
-    const offsetPosition = elementPosition + window.pageYOffset - headerHeight
-
-    window.scrollTo({ top: offsetPosition, behavior: 'smooth' })
-  }
-}
-
 export type NavigationItem = {
   title: string
   href: string
@@ -69,15 +56,6 @@ const MenuDropdown = ({ trigger, navigationData, activeSection, align = 'start' 
               <DropdownMenuItem key={navItem.title} asChild>
                 <a
                   href={navItem.href}
-                  onClick={e => {
-                    const hashIdx = navItem.href.indexOf('#')
-                    if (hashIdx < 0) return
-                    const path = navItem.href.slice(0, hashIdx)
-                    const onSamePath = !path || path === window.location.pathname
-                    if (!onSamePath) return
-                    e.preventDefault()
-                    scrollToSection(navItem.href.slice(hashIdx + 1))
-                  }}
                   className={cn(
                     'transition-colors duration-200',
                     'hover:bg-primary/10 hover:text-primary focus:bg-primary/10 focus:text-primary',

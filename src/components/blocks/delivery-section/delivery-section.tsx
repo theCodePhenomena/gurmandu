@@ -19,7 +19,7 @@ const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: De
   return (
     <section
       id='delivery'
-      className='before:bg-muted relative py-8 before:absolute before:inset-0 before:-z-10 before:skew-y-3 sm:py-16 lg:py-24'
+      className='before:bg-muted relative scroll-mt-40 py-8 before:absolute before:inset-0 before:-z-10 before:skew-y-3 sm:py-16 lg:scroll-mt-16 lg:py-24'
     >
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
@@ -54,7 +54,11 @@ const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: De
           ))}
         </div>
 
-        <p className='text-muted-foreground mt-10 text-center text-base'>
+        <div className='mt-10 space-y-1 text-center'>
+          <p className='text-muted-foreground text-sm'>{t('delivery.hours.delivery')}</p>
+        </div>
+
+        <p className='text-muted-foreground mt-6 text-center text-base'>
           {TAKEAWAY_LABEL[lang]}{' '}
           <a
             href={`tel:${TAKEAWAY_PHONE}`}

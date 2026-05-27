@@ -64,7 +64,7 @@ const HeroSection = ({ menudata, lang = 'ro' }: { menudata: MenuData[]; lang?: L
   return (
     <section
       id='home'
-      className='before:border-primary/20 relative flex-1 py-12 before:absolute before:inset-0 before:-z-10 before:-skew-y-3 before:border-b sm:py-16 lg:py-24'
+      className='before:border-primary/20 relative flex-1 scroll-mt-40 py-12 before:absolute before:inset-0 before:-z-10 before:-skew-y-3 before:border-b sm:py-16 lg:scroll-mt-16 lg:py-24'
     >
       <div className='mx-auto flex h-full max-w-7xl flex-col px-4 sm:px-6 lg:px-8'>
         {/* Hero Header */}

@@ -14,31 +14,32 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
   const t = (key: keyof typeof ui.ro) => ui[lang][key]
 
   const renderValue = (info: ContactItem) => {
-    const lines = info.description.split('\n')
+    const description = info.description[lang]
+    const lines = description.split('\n')
 
     if (info.icon === 'phone') {
-      const href = `tel:${info.description.replace(/\s+/g, '')}`
+      const href = `tel:${description.replace(/\s+/g, '')}`
 
       return (
         <a href={href} className='hover:text-primary underline underline-offset-4 transition-colors'>
-          {info.description}
+          {description}
         </a>
       )
     }
 
     if (info.icon === 'mail') {
-      const href = `mailto:${info.description.trim()}`
+      const href = `mailto:${description.trim()}`
 
       return (
         <a href={href} className='hover:text-primary underline underline-offset-4 transition-colors'>
-          {info.description}
+          {description}
         </a>
       )
     }
 
     if (info.icon === 'map') {
       const href = `https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
-        info.description.replace(/\n/g, ', ')
+        description.replace(/\n/g, ', ')
       )}`
 
       return (
@@ -65,7 +66,7 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
   }
 
   return (
-    <section id='contact-us' className='bg-muted/40 py-8 sm:py-16 lg:py-24'>
+    <section id='contact-us' className='bg-muted/40 scroll-mt-40 py-8 sm:py-16 lg:scroll-mt-16 lg:py-24'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('contact.title')}</h2>
