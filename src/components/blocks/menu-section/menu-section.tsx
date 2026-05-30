@@ -285,7 +285,7 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
 
         {/* Sticky category nav */}
         <div className='sticky top-40 z-40 mb-20 md:top-32'>
-          <div aria-hidden='true' className='bg-background pointer-events-none absolute inset-x-0 -top-20 bottom-0' />
+          <div aria-hidden='true' className='bg-background pointer-events-none absolute inset-x-0 top-0 md:-top-20 bottom-0' />
           <div
             aria-hidden='true'
             className='from-background from-0 pointer-events-none absolute inset-x-0 top-full h-10 bg-linear-to-b to-transparent'

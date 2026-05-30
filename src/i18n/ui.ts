@@ -65,7 +65,7 @@ export const ui = {
 
     // Footer
     'footer.tagline': 'GurMANDU® — Mâncare bună, preț bun, oameni buni.',
-    'footer.cuisines': 'Fusion · Românesc · Mediteranean · Italian',
+    'footer.cuisines': 'Bucătărie Fusion',
     'footer.legal': 'Gătim totul proaspăt, din ingrediente alese cu grijă, în bucătăria noastră deschisă.',
     'footer.rights': 'Toate drepturile rezervate.'
   },
@@ -124,7 +124,7 @@ export const ui = {
       'For groups of more than 10 guests, we kindly ask that you contact us at least 24 hours in advance.',
 
     'footer.tagline': 'GurMANDU® — Great food, honest prices, good people.',
-    'footer.cuisines': 'Fusion · Romanian · Mediterranean · Italian',
+    'footer.cuisines': 'Fusion Cuisine',
     'footer.legal': 'Everything is cooked fresh, from carefully chosen ingredients, in our open kitchen.',
     'footer.rights': 'All rights reserved.'
   }
