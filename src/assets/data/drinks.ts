@@ -191,33 +191,33 @@ export const drinkCategories: DrinkCategory[] = [
       {
         name: p('Efes draught', 'Efes draught'),
         description: p('', ''),
-        price: 25,
+        price: 19,
         weight: '500ml'
       },
       {
         name: p('Heineken', 'Heineken'),
         description: p('', ''),
-        price: 23,
+        price: 16,
         weight: '400ml'
       },
       { name: p('Madri', 'Madri'), description: p('', ''), price: 15, weight: '500ml' },
       {
         name: p('Carlsberg', 'Carlsberg'),
         description: p('', ''),
-        price: 24,
+        price: 19,
         weight: '500ml'
       },
-      { name: p('Tuborg', 'Tuborg'), description: p('', ''), price: 19, weight: '500ml' },
+      { name: p('Tuborg', 'Tuborg'), description: p('', ''), price: 16, weight: '500ml' },
       {
         name: p('Corona', 'Corona'),
         description: p('', ''),
-        price: 22,
+        price: 18,
         weight: '355ml'
       },
       {
         name: p('Leffe Blonda', 'Leffe Blonde'),
         description: p('', ''),
-        price: 25,
+        price: 23,
         weight: '330ml'
       }
     ]
