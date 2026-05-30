@@ -19,12 +19,12 @@ const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: De
   return (
     <section
       id='delivery'
-      className='before:bg-muted relative scroll-mt-40 py-8 before:absolute before:inset-0 before:-z-10 before:skew-y-3 sm:py-16 lg:scroll-mt-16 lg:py-24'
+      className='relative scroll-mt-40 py-8 before:absolute before:inset-0 before:-z-10 before:skew-y-3 before:bg-muted sm:py-16 lg:scroll-mt-16 lg:py-24'
     >
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('delivery.title')}</h2>
-          <p className='text-muted-foreground text-xl'>{t('delivery.subtitle')}</p>
+          <p className='text-xl text-muted-foreground'>{t('delivery.subtitle')}</p>
         </div>
 
         <div className='flex flex-nowrap items-center justify-center gap-4 sm:gap-8'>
@@ -35,10 +35,10 @@ const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: De
               target='_blank'
               rel='noopener noreferrer'
               aria-label={option.name}
-              className='group focus-visible:ring-primary rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2'
+              className='group rounded-2xl focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2'
             >
               <div
-                className='bg-background ring-border/60 group-hover:ring-primary flex shrink-0 items-center justify-center overflow-hidden rounded-2xl shadow-md ring-1 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl'
+                className='flex shrink-0 items-center justify-center overflow-hidden rounded-2xl bg-background shadow-md ring-1 ring-border/60 transition-all duration-300 group-hover:-translate-y-1 group-hover:shadow-xl group-hover:ring-primary'
                 style={{ width: 96, height: 96 }}
               >
                 <img
@@ -55,14 +55,15 @@ const DeliverySection = ({ deliveryOptions, lang = 'ro' }: { deliveryOptions: De
         </div>
 
         <div className='mt-10 space-y-1 text-center'>
-          <p className='text-muted-foreground text-sm'>{t('delivery.hours.delivery')}</p>
+          <p className='text-sm text-muted-foreground'>{t('delivery.hours.delivery.week')}</p>
+          <p className='text-sm text-muted-foreground'>{t('delivery.hours.delivery.weekend')}</p>
         </div>
 
-        <p className='text-muted-foreground mt-6 text-center text-base'>
+        <p className='mt-6 text-center text-base text-muted-foreground'>
           {TAKEAWAY_LABEL[lang]}{' '}
           <a
             href={`tel:${TAKEAWAY_PHONE}`}
-            className='text-primary font-semibold underline underline-offset-4 hover:opacity-80'
+            className='font-semibold text-primary underline underline-offset-4 hover:opacity-80'
           >
             {TAKEAWAY_PHONE}
           </a>

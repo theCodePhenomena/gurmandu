@@ -1,4 +1,4 @@
-import { Clock8Icon, MapPinIcon, Mail, PhoneIcon } from 'lucide-react'
+import { Clock8Icon, MapPinIcon, Mail, PhoneIcon, ShoppingBagIcon } from 'lucide-react'
 
 import type { ContactIcon, ContactItem } from '@/assets/data/contact-us'
 import { ui, type Locale } from '@/i18n/ui'
@@ -7,7 +7,8 @@ const ICONS: Record<ContactIcon, typeof Clock8Icon> = {
   clock: Clock8Icon,
   map: MapPinIcon,
   mail: Mail,
-  phone: PhoneIcon
+  phone: PhoneIcon,
+  delivery: ShoppingBagIcon
 }
 
 const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; lang?: Locale }) => {
@@ -21,7 +22,7 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
       const href = `tel:${description.replace(/\s+/g, '')}`
 
       return (
-        <a href={href} className='hover:text-primary underline underline-offset-4 transition-colors'>
+        <a href={href} className='underline underline-offset-4 transition-colors hover:text-primary'>
           {description}
         </a>
       )
@@ -31,7 +32,7 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
       const href = `mailto:${description.trim()}`
 
       return (
-        <a href={href} className='hover:text-primary underline underline-offset-4 transition-colors'>
+        <a href={href} className='underline underline-offset-4 transition-colors hover:text-primary'>
           {description}
         </a>
       )
@@ -47,7 +48,7 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
           href={href}
           target='_blank'
           rel='noopener noreferrer'
-          className='hover:text-primary underline underline-offset-4 transition-colors'
+          className='underline underline-offset-4 transition-colors hover:text-primary'
         >
           {lines.map((line, idx) => (
             <span key={idx} className='block'>
@@ -66,11 +67,11 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
   }
 
   return (
-    <section id='contact-us' className='bg-muted/40 scroll-mt-40 py-8 sm:py-16 lg:scroll-mt-16 lg:py-24'>
+    <section id='contact-us' className='scroll-mt-40 bg-muted/40 py-8 sm:py-16 lg:scroll-mt-16 lg:py-24'>
       <div className='mx-auto max-w-7xl px-4 sm:px-6 lg:px-8'>
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('contact.title')}</h2>
-          <p className='text-muted-foreground text-xl'>{t('contact.subtitle')}</p>
+          <p className='text-xl text-muted-foreground'>{t('contact.subtitle')}</p>
         </div>
 
         <div className='grid items-center gap-12 lg:grid-cols-2'>
@@ -87,7 +88,7 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
 
           <div>
             <h3 className='mb-2 text-2xl'>{lang === 'ro' ? 'Suntem aici pentru tine' : "We're here to serve you"}</h3>
-            <p className='text-muted-foreground mb-8 text-lg'>{t('contact.note')}</p>
+            <p className='mb-8 text-lg text-muted-foreground'>{t('contact.note')}</p>
 
             <dl className='space-y-5'>
               {contactInfo.map((info, index) => {
@@ -95,12 +96,12 @@ const ContactUs = ({ contactInfo, lang = 'ro' }: { contactInfo: ContactItem[]; l
 
                 return (
                   <div key={index} className='flex items-start gap-3'>
-                    <Icon className='text-primary mt-1 size-5 shrink-0' aria-hidden='true' />
+                    <Icon className='mt-1 size-5 shrink-0 text-primary' aria-hidden='true' />
                     <div className='flex flex-col gap-1'>
-                      <dt className='text-foreground text-sm font-semibold tracking-wide uppercase'>
+                      <dt className='text-sm font-semibold uppercase tracking-wide text-foreground'>
                         {info.title[lang]}
                       </dt>
-                      <dd className='text-muted-foreground text-base'>{renderValue(info)}</dd>
+                      <dd className='text-base text-muted-foreground'>{renderValue(info)}</dd>
                     </div>
                   </div>
                 )

@@ -44,7 +44,8 @@ export const ui = {
     'delivery.subtitle':
       'Nu trebuie să ieși din casă pentru a te bucura de un preparat bun. Meniul nostru ajunge la tine rapid, cald și la fel de îngrijit ca în restaurant.',
     'delivery.takeaway': 'Preferați să ridicați comanda personal? Sunați-ne și vă pregătim totul din timp.',
-    'delivery.hours.delivery': 'Program livrări: 10:00 — 23:30',
+    'delivery.hours.delivery.week': 'Luni - Vineri: 10:00 - 23:30',
+    'delivery.hours.delivery.weekend': 'Sâmbătă - Duminică: 11:00 - 23:30',
     'delivery.cta.order': 'Comandă acum',
     'delivery.cta.call': 'Sună-ne',
 
@@ -106,7 +107,8 @@ export const ui = {
       "You don't need to leave home to enjoy a truly good meal. Our menu reaches you quickly, warm and just as carefully prepared as it would be in the restaurant.",
     'delivery.takeaway':
       "Prefer to pick up your order in person? Give us a call and we'll have it ready when you arrive.",
-    'delivery.hours.delivery': 'Delivery hours: 10:00 — 23:30',
+    'delivery.hours.delivery.week': 'Monday - Friday: 10:00 - 23:30',
+    'delivery.hours.delivery.weekend': 'Saturday - Sunday: 11:00 - 23:30',
     'delivery.cta.order': 'Order now',
     'delivery.cta.call': 'Call us',
 

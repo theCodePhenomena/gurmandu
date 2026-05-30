@@ -1,6 +1,6 @@
 import type { Locale } from '@/i18n/ui'
 
-export type ContactIcon = 'clock' | 'map' | 'mail' | 'phone'
+export type ContactIcon = 'clock' | 'map' | 'mail' | 'phone' | 'delivery'
 
 export type ContactItem = {
   title: Record<Locale, string>
@@ -13,8 +13,16 @@ export const contactInfo: ContactItem[] = [
     title: { ro: 'Program', en: 'Hours' },
     icon: 'clock',
     description: {
-      ro: 'Luni - Vineri: 10:00 - 01:00\nSâmbătă - Duminică: 11:00 - 01:00\nLivrare: 10:00 - 23:30',
-      en: 'Monday - Friday: 10:00 - 01:00\nSaturday - Sunday: 11:00 - 01:00\nDelivery: 10:00 - 23:30'
+      ro: 'Luni - Vineri: 10:00 - 01:00\nSâmbătă - Duminică: 11:00 - 01:00',
+      en: 'Monday - Friday: 10:00 - 01:00\nSaturday - Sunday: 11:00 - 01:00'
+    }
+  },
+  {
+    title: { ro: 'Livrare', en: 'Delivery' },
+    icon: 'delivery',
+    description: {
+      ro: 'Luni - Vineri: 10:00 - 23:30\nSâmbătă - Duminică: 11:00 - 23:30',
+      en: 'Monday - Friday: 10:00 - 23:30\nSaturday - Sunday: 11:00 - 23:30'
     }
   },
   {
