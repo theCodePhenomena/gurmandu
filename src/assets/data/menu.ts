@@ -900,8 +900,8 @@ export const plateCategories: PlateCategory[] = [
       {
         name: p('Fructe de mare DUO', 'Seafood DUO'),
         description: p(
-          'Calamar, creveți, scoici, tentacule, dorada, cartofi, lămâie, sosuri, pita.',
-          'Squid, shrimps, mussels, tentacles, dorada, fries, lemon, sauces, pita.'
+          'Calamar, creveți, scoici, tentacule calamar, dorada, cartofi, lămâie, sosuri, pita.',
+          'Squid, shrimps, mussels, squid tentacles, dorada, fries, lemon, sauces, pita.'
         ),
         price: 245,
         weight: '1400g',
@@ -912,8 +912,8 @@ export const plateCategories: PlateCategory[] = [
       {
         name: p('Fructe de mare GIGANT', 'Seafood GIANT'),
         description: p(
-          'Caracatiță, tentacule, creveți, scoici, calamar, dorada, cartofi, sosuri, pita.',
-          'Octopus, tentacles, shrimps, mussels, squid, dorada, fries, sauces, pita.'
+          'Caracatiță, tentacule calamar, creveți, scoici, calamar, dorada, cartofi, sosuri, pita.',
+          'Octopus, squid tentacles, shrimps, mussels, squid, dorada, fries, sauces, pita.'
         ),
         price: 520,
         weight: '2500g',
