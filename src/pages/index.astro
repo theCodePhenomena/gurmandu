@@ -7,6 +7,7 @@ import MenuSection from '@/components/blocks/menu-section/menu-section'
 import DeliverySection from '@/components/blocks/delivery-section/delivery-section'
 import ContactUs from '@/components/blocks/contact-us-section/contact-us-page'
 import SocialSection from '@/components/blocks/social-section/social-section'
+import StickyOrder from '@/components/blocks/sticky-order/sticky-order'
 
 import { menudata } from '@/assets/data/hero'
 import { plateCategories } from '@/assets/data/menu'
@@ -50,4 +51,5 @@ const schema = {
   <DeliverySection deliveryOptions={deliveryOptions} lang={lang} client:load />
   <SocialSection lang={lang} client:load />
   <ContactUs contactInfo={contactInfo} lang={lang} client:load />
+  <StickyOrder lang={lang} client:load />
 </Layout>
