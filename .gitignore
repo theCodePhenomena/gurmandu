@@ -46,3 +46,10 @@ build/
 
 # jetbrains setting folder
 .idea/
+
+# bmad
+_bmad/
+_bmad-output/
+
+# claude
+.claude/
