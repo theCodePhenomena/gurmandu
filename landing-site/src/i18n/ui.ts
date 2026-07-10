@@ -46,12 +46,8 @@ export const ui = {
     'delivery.takeaway': 'Preferați să ridicați comanda personal? Sunați-ne și vă pregătim totul din timp.',
     'delivery.hours.delivery.week': 'Luni - Vineri: 10:00 - 23:30',
     'delivery.hours.delivery.weekend': 'Sâmbătă - Duminică: 11:00 - 23:30',
-    'delivery.cta.order': 'Comandă acum',
+    'delivery.cta.order': 'Rezervă acum',
     'delivery.cta.call': 'Sună-ne',
-    'delivery.free': 'Livrare gratuită la domiciliu — Sectorul 3',
-    'delivery.home.hours.week': 'Luni - Vineri: 10:00 - 23:30',
-    'delivery.home.hours.weekend': 'Sâmbătă - Duminică: 11:00 - 23:30',
-    'sticky.notice': 'Livrare gratuită',
 
     // About
     'about.badge': 'Despre noi',
@@ -113,12 +109,8 @@ export const ui = {
       "Prefer to pick up your order in person? Give us a call and we'll have it ready when you arrive.",
     'delivery.hours.delivery.week': 'Monday - Friday: 10:00 - 23:30',
     'delivery.hours.delivery.weekend': 'Saturday - Sunday: 11:00 - 23:30',
-    'delivery.cta.order': 'Order now',
+    'delivery.cta.order': 'Reserve now',
     'delivery.cta.call': 'Call us',
-    'delivery.free': 'Free home delivery — Sector 3',
-    'delivery.home.hours.week': 'Monday - Friday: 10:00 - 23:30',
-    'delivery.home.hours.weekend': 'Saturday - Sunday: 11:00 - 23:30',
-    'sticky.notice': 'Free delivery',
 
     'about.badge': 'About us',
     'about.title': 'The story behind the name',

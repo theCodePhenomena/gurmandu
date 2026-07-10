@@ -453,7 +453,7 @@ export const plateCategories: PlateCategory[] = [
   {
     id: 8,
     slug: 'specialitati-casa',
-    prettyName: p('Specialități Casa', 'House Specials'),
+    prettyName: p('Specialitățile Casei', 'House Specials'),
     description: p('Rețete tradiționale românești.', 'Traditional Romanian recipes.'),
     plates: [
       {
@@ -464,14 +464,6 @@ export const plateCategories: PlateCategory[] = [
         allergens: '1',
         image: m('specialitati/pastrama-miel-ceaun'),
         nutrition: 'Informatii Nutritionale 100gr - Valoare energetica: 241.38kcal/241.38kJ, Grasimi: 6.06gr, din care: Acizi grasi saturati: 3.37gr, Glucide: 35.91gr, din care: Zaharuri: 0.80gr, Proteine: 11.85gr, Sare: 1.100 | Informatii Nutritionale 400.00gr - Valoare energetica: 965.51kcal/4035.8318kJ, Grasimi: 24.23gr, din care: Acizi grasi saturati: 13.48gr, Glucide: 143.62gr, din care: Zaharuri: 3.19gr, Proteine: 47.38gr, Sare: 4.40gr'
-      },
-      {
-        name: p('Jumătate de pui la cuptor', 'Half oven-baked chicken'),
-        description: p('Cu cartofi prăjiți și sos de usturoi.', 'With french fries and garlic sauce.'),
-        price: 55,
-        weight: '600g',
-        image: m('specialitati/pui-cuptor'),
-        nutrition: 'Informatii Nutritionale 100gr - Valoare energetica: 242kcal/1010kJ, Grasimi: 15.3gr, din care: Acizi grasi saturati: 3gr, Glucide: 7.5gr, din care: Zaharuri: 0.3gr, Proteine: 18gr, Sare: 0.58gr | Informatii Nutritionale 600.00gr - Valoare energetica: 1450kcal/6060kJ, Grasimi: 92gr, din care: Acizi grasi saturati: 18gr, Glucide: 45gr, din care: Zaharuri: 2gr, Proteine: 108gr, Sare: 3.5gr'
       },
       {
         name: p('Cocoșel la ceaun', 'Roasted cockerel'),

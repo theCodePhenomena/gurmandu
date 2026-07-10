@@ -5,9 +5,7 @@ import type { Plate, PlateCategory } from '@/assets/data/menu'
 import { siteLang, siteCurrency } from '@/assets/data/menu'
 import type { Locale } from '@/i18n/ui'
 import { ui } from '@/i18n/ui'
-import { PhoneIcon, ShoppingBagIcon, XIcon } from 'lucide-react'
-
-const ORDER_PHONE = '+40730376165'
+import { XIcon } from 'lucide-react'
 
 type MenuSectionProps = {
   plateCategories: PlateCategory[]
@@ -283,21 +281,6 @@ const MenuSection = ({ plateCategories, lang = 'ro' }: MenuSectionProps) => {
         <div className='mx-auto mb-12 flex max-w-2xl flex-col items-center justify-center space-y-4 text-center sm:mb-16 lg:mb-24'>
           <h2 className='text-2xl font-semibold md:text-3xl lg:text-4xl'>{t('menu.title')}</h2>
           <p className='text-muted-foreground text-xl'>{t('menu.subtitle')}</p>
-
-          <span className='inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-2 text-sm font-semibold text-primary ring-1 ring-primary/20'>
-            <ShoppingBagIcon className='size-4' aria-hidden='true' /> {t('delivery.free')}
-          </span>
-
-          <div className='space-y-1'>
-            <p className='text-sm text-muted-foreground'>{t('delivery.home.hours.week')}</p>
-            <p className='text-sm text-muted-foreground'>{t('delivery.home.hours.weekend')}</p>
-          </div>
-
-          <Button asChild className='px-10 has-[>svg]:px-10'>
-            <a href={`tel:${ORDER_PHONE}`}>
-              <PhoneIcon aria-hidden='true' /> {t('delivery.cta.order')}
-            </a>
-          </Button>
         </div>
 
         {/* Sticky category nav */}
